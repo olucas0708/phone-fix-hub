@@ -179,3 +179,10 @@
     scroll-behavior: auto;
   }
 }
+
+
+/* Nara Cell image palette: convert green/cyan casts toward the brand red.
+   Applied only to the site's photography so UI colors remain untouched. */
+@utility image-red-tone {
+  filter: hue-rotate(-120deg) saturate(1.12);
+}

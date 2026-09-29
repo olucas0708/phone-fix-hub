@@ -10,6 +10,7 @@ import {
   Clock3,
   Filter,
   Headphones,
+  Hand,
   MapPin,
   MessageCircle,
   Phone,

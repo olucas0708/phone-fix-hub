@@ -691,7 +691,7 @@ function Index() {
 
           <div className="relative min-h-[650px] rounded-[2.5rem] border border-white/10 bg-white/[0.03] p-4 shadow-2xl sm:p-8">
             <div className="relative h-[580px] overflow-hidden rounded-[2rem] border border-white/10 bg-neutral-950">
-              <img src={repair} alt="Assistência técnica Nara Cell" className="image-red-tone absolute inset-0 h-full w-full object-cover opacity-45 transition-transform duration-1000" style={{ transform: `scale(${1 + repairStoryStep * 0.025})` }} />
+              <img src={repairStoryStep === 4 ? heroPhone : repair} alt={repairStoryStep === 4 ? "Smartphone pronto na Nara Cell" : "Assistência técnica Nara Cell"} className="image-red-tone absolute inset-0 h-full w-full object-cover opacity-45 transition-transform duration-1000" style={{ transform: `scale(${1 + repairStoryStep * 0.025})` }} />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40" />
               <div className="absolute left-6 top-6 rounded-full border border-white/10 bg-black/60 px-4 py-2 text-xs font-bold uppercase tracking-widest text-white/70 backdrop-blur">
                 Nara Cell • Oficina

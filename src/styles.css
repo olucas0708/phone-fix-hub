@@ -186,3 +186,9 @@
 @utility image-red-tone {
   filter: hue-rotate(-120deg) saturate(1.12);
 }
+
+
+/* Comparison slider: force the revealed layer to true black and white. */
+.comparison-grayscale {
+  filter: grayscale(1) !important;
+}

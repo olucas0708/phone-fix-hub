@@ -70,26 +70,30 @@ const PHONES = [
 ];
 
 const SERVICES = [
-  {
-    icon: Smartphone,
-    title: "Troca de tela",
-    desc: "Telas originais e de alta qualidade com garantia de 90 dias.",
-  },
-  {
-    icon: BatteryCharging,
-    title: "Bateria",
-    desc: "Substituição rápida com teste completo de desempenho.",
-  },
-  {
-    icon: Wrench,
-    title: "Placa e microsoldagem",
-    desc: "Laboratório próprio para reparos avançados em placa.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Diagnóstico gratuito",
-    desc: "Avaliação completa do aparelho sem compromisso.",
-  },
+  { icon: Smartphone, title: "Troca de tela" },
+  { icon: BatteryCharging, title: "Troca de bateria" },
+  { icon: Cable, title: "Troca de conector de carga" },
+  { icon: Smartphone, title: "Troca de câmera" },
+  { icon: Headphones, title: "Troca de alto-falante" },
+  { icon: MessageCircle, title: "Troca de microfone" },
+  { icon: Smartphone, title: "Troca de botões" },
+  { icon: Smartphone, title: "Troca de tampa traseira" },
+  { icon: Smartphone, title: "Troca de carcaça" },
+  { icon: Wrench, title: "Reparo de placa" },
+  { icon: Zap, title: "Reparo de curto" },
+  { icon: Wrench, title: "Reparo de oxidação" },
+  { icon: Smartphone, title: "Recuperação de aparelho molhado" },
+  { icon: ShieldCheck, title: "Diagnóstico" },
+  { icon: Wrench, title: "Limpeza interna" },
+  { icon: Zap, title: "Atualização de sistema" },
+  { icon: Zap, title: "Restauração de sistema" },
+  { icon: Cable, title: "Backup e transferência de dados" },
+  { icon: Smartphone, title: "Configuração inicial" },
+  { icon: Smartphone, title: "Instalação de aplicativos" },
+  { icon: ShieldCheck, title: "Configuração de contas" },
+  { icon: Cable, title: "Migração de dados entre celulares" },
+  { icon: ShieldCheck, title: "Aplicação de película" },
+  { icon: Sparkles, title: "Higienização do aparelho" },
 ];
 
 const ACCESSORY_ITEMS = [
@@ -407,22 +411,21 @@ function Index() {
               Seu aparelho em boas mãos
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Laboratório próprio, técnicos certificados e peças de qualidade.
-              Diagnóstico gratuito e orçamento sem compromisso.
+              Oferecemos serviços para reparos de hardware, sistema, dados e cuidados com o aparelho.
+              Consulte a equipe Nara Cell para avaliar o seu caso e solicitar um orçamento.
             </p>
           </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {SERVICES.map((service, i) => (
               <div
                 key={service.title}
-                className="reveal rounded-3xl border border-border bg-card/80 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40"
-                style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
+                className="reveal flex items-center gap-4 rounded-2xl border border-border bg-card/80 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+                style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}
               >
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary">
-                  <service.icon className="h-6 w-6" />
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                  <service.icon className="h-5 w-5" />
                 </span>
-                <h3 className="mt-4 font-display text-lg font-bold">{service.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{service.desc}</p>
+                <h3 className="font-display text-base font-bold leading-tight">{service.title}</h3>
               </div>
             ))}
           </div>

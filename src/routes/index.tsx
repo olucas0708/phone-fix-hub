@@ -281,16 +281,16 @@ function Index() {
                 <div className="absolute h-[250px] w-[250px] rounded-full border border-primary/20 shadow-[0_0_80px_rgba(239,24,38,0.28)] sm:h-[340px] sm:w-[340px]" />
                 <div className="absolute h-[330px] w-[330px] rounded-full border border-primary/10 sm:h-[440px] sm:w-[440px]" />
               </div>
-              <div data-scene data-scene-spin-y="360" data-scene-rotate="-4" data-scene-scale="0.05" className="absolute left-1/2 top-1/2 w-[86%] -translate-x-1/2 -translate-y-1/2 will-change-transform" style={{ transformStyle: "preserve-3d" }}>
+              <div data-scene data-scene-mouse="18" data-scene-spin-y="360" data-scene-rotate="-4" data-scene-scale="0.05" className="absolute left-1/2 top-1/2 w-[86%] -translate-x-1/2 -translate-y-1/2 will-change-transform" style={{ transformStyle: "preserve-3d" }}>
                 <div className="overflow-hidden rounded-[2rem] border border-white/20 bg-black/50 p-2 shadow-[0_40px_120px_rgba(0,0,0,0.9)] backdrop-blur-sm sm:rounded-[2.5rem] sm:p-3">
                   <img src={phonesDuo} alt="Smartphones em destaque na Nara Cell" width={1024} height={1024} loading="lazy" className="h-[350px] w-full rounded-[1.5rem] object-cover sm:h-[450px] sm:rounded-[2rem]" />
                 </div>
               </div>
-              <div data-scene data-scene-x="120" data-scene-y="-80" data-scene-rotate="7" className="absolute right-0 top-8 z-10 rounded-2xl border border-white/15 bg-black/70 px-4 py-3 shadow-2xl backdrop-blur-xl sm:right-4 sm:top-14">
+              <div data-scene data-scene-mouse="10" data-scene-x="120" data-scene-y="-80" data-scene-rotate="7" className="absolute right-0 top-8 z-10 rounded-2xl border border-white/15 bg-black/70 px-4 py-3 shadow-2xl backdrop-blur-xl sm:right-4 sm:top-14">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Nara Cell</p>
                 <p className="mt-1 font-display text-lg font-bold text-white">Tecnologia que impressiona</p>
               </div>
-              <div data-scene data-scene-x="-110" data-scene-y="80" data-scene-rotate="-6" className="absolute bottom-8 left-0 z-10 rounded-2xl border border-primary/30 bg-black/75 px-4 py-3 shadow-2xl backdrop-blur-xl sm:left-4 sm:bottom-14">
+              <div data-scene data-scene-mouse="8" data-scene-x="-110" data-scene-y="80" data-scene-rotate="-6" className="absolute bottom-8 left-0 z-10 rounded-2xl border border-primary/30 bg-black/75 px-4 py-3 shadow-2xl backdrop-blur-xl sm:left-4 sm:bottom-14">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50">Experiência Nara Cell</p>
                 <p className="mt-1 flex items-center gap-2 font-semibold text-white"><span className="h-2 w-2 animate-pulse rounded-full bg-primary" /> Role para explorar</p>
               </div>
@@ -453,8 +453,8 @@ function Index() {
           <div className="overflow-hidden rounded-[2rem] border border-border bg-black p-2 shadow-2xl">
             <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem]">
               <img src={repair} alt="Assistência técnica Nara Cell" className="absolute inset-0 h-full w-full object-cover grayscale" />
-              <div className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: `${repairPosition}%` }}>
-                <img src={repair} alt="" aria-hidden="true" className="h-full w-full max-w-none object-cover" style={{ width: "100cqw" }} />
+              <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - repairPosition}% 0 0)` }}>
+                <img src={repair} alt="" aria-hidden="true" className="h-full w-full object-cover" />
               </div>
               <div className="pointer-events-none absolute inset-y-0" style={{ left: `${repairPosition}%` }}><div className="h-full w-px bg-white shadow-[0_0_18px_rgba(255,255,255,0.8)]" /></div>
               <span className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white">Cuidado</span>

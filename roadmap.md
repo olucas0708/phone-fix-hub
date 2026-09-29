@@ -9,3 +9,6 @@
 - [ ] Animações de scroll (IntersectionObserver, respeitando prefers-reduced-motion)
 - [ ] Metadados head() na rota index
 - [ ] Verificar build e preview
+
+## Status final
+Todos os itens concluídos. Build OK, sem erros de console. Preview verificado com screenshots (hero, celulares, assistência).

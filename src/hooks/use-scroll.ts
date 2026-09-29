@@ -53,7 +53,7 @@ export function useParallax<T extends HTMLElement>() {
       ticking = false;
       const scrollY = window.scrollY;
       items.forEach((el) => {
-        const speed = Number(el.dataset.parallaxSpeed ?? 0);
+        const speed = Number(el.dataset["parallaxSpeed"] ?? 0);
         el.style.transform = `translate3d(0, ${scrollY * speed}px, 0)`;
       });
     };

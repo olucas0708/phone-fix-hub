@@ -75,6 +75,7 @@ const SERVICES = [
   { icon: Cable, title: "Troca de conector de carga" },
   { icon: Wrench, title: "Reparo de placa" },
   { icon: ShieldCheck, title: "Diagnóstico" },
+  { icon: MessageCircle, title: "Outros serviços", whatsapp: true },
 ];
 
 const ACCESSORY_ITEMS = [
@@ -83,6 +84,7 @@ const ACCESSORY_ITEMS = [
   { icon: Cable, label: "Cabos USB-C" },
   { icon: Zap, label: "Carregadores" },
   { icon: Headphones, label: "Fones Bluetooth" },
+  { icon: MessageCircle, label: "Outros produtos", whatsapp: true },
 ];
 
 function Index() {
@@ -358,16 +360,21 @@ function Index() {
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {ACCESSORY_ITEMS.map((item, i) => (
-              <div
+              <a
                 key={item.label}
+                href={item.whatsapp ? WHATSAPP_URL : "#"}
+                target={item.whatsapp ? "_blank" : undefined}
+                rel={item.whatsapp ? "noopener noreferrer" : undefined}
                 className="reveal group flex items-center gap-4 rounded-2xl border border-border bg-background p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
                 style={{ "--reveal-delay": `${i * 50}ms` } as React.CSSProperties}
+                onClick={item.whatsapp ? undefined : (e) => e.preventDefault()}
               >
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
                   <item.icon className="h-5 w-5" />
                 </span>
                 <span className="text-sm font-semibold leading-tight">{item.label}</span>
-              </div>
+                {item.whatsapp && <ArrowRight className="ml-auto h-4 w-4 text-primary" />}
+              </a>
             ))}
           </div>
 
@@ -420,16 +427,21 @@ function Index() {
           </div>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {SERVICES.map((service, i) => (
-              <div
+              <a
                 key={service.title}
+                href={service.whatsapp ? WHATSAPP_URL : "#"}
+                target={service.whatsapp ? "_blank" : undefined}
+                rel={service.whatsapp ? "noopener noreferrer" : undefined}
                 className="reveal flex items-center gap-4 rounded-2xl border border-border bg-card/80 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
                 style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}
+                onClick={service.whatsapp ? undefined : (e) => e.preventDefault()}
               >
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
                   <service.icon className="h-5 w-5" />
                 </span>
                 <h3 className="font-display text-base font-bold leading-tight">{service.title}</h3>
-              </div>
+                {service.whatsapp && <ArrowRight className="ml-auto h-4 w-4 text-primary" />}
+              </a>
             ))}
           </div>
           <div className="reveal mt-10">

@@ -70,6 +70,22 @@ export function useParallax<T extends HTMLElement>() {
       if (!frame) frame = window.requestAnimationFrame(update);
     };
 
+    const onPointerMove = (event: PointerEvent) => {
+      if (!inViewport) return;
+      const rect = root.getBoundingClientRect();
+      mouseX = ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
+      mouseY = ((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2;
+      requestUpdate();
+    };
+
+    const onPointerLeave = () => {
+      mouseX = 0;
+      mouseY = 0;
+      requestUpdate();
+    };
+
+    root.addEventListener("pointermove", onPointerMove, { passive: true });
+    root.addEventListener("pointerleave", onPointerLeave);
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
     requestUpdate();
@@ -98,6 +114,8 @@ export function useScrollScene<T extends HTMLElement>() {
     let frame = 0;
     let active = true;
     let inViewport = true;
+    let mouseX = 0;
+    let mouseY = 0;
 
     const update = () => {
       frame = 0;
@@ -115,8 +133,11 @@ export function useScrollScene<T extends HTMLElement>() {
         const spinY = Number(el.dataset.sceneSpinY ?? 0);
         const spinX = Number(el.dataset.sceneSpinX ?? 0);
         const scale = Number(el.dataset.sceneScale ?? 0);
+        const mouseDepth = Number(el.dataset.sceneMouse ?? 0);
+        const mouseTranslateX = mouseX * mouseDepth;
+        const mouseTranslateY = mouseY * mouseDepth;
 
-        const translate = `translate3d(${centered * x}px, ${centered * y}px, 0)`;
+        const translate = `translate3d(${centered * x + mouseTranslateX}px, ${centered * y + mouseTranslateY}px, 0)`;
         const rotation = `rotate(${centered * rotate}deg) rotateX(${progress * spinX}deg) rotateY(${progress * spinY}deg)`;
         el.style.transform = `${translate} ${rotation} scale(${1 + centered * scale})`;
         el.style.transformStyle = "preserve-3d";
@@ -146,6 +167,8 @@ export function useScrollScene<T extends HTMLElement>() {
       active = false;
       if (frame) window.cancelAnimationFrame(frame);
       visibilityObserver.disconnect();
+      root.removeEventListener("pointermove", onPointerMove);
+      root.removeEventListener("pointerleave", onPointerLeave);
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
     };

@@ -236,3 +236,65 @@
     transform: none;
   }
 }
+
+/* Production polish: premium surfaces, touch ergonomics and safe mobile rendering. */
+::selection {
+  background: color-mix(in oklab, var(--primary) 82%, black);
+  color: var(--primary-foreground);
+}
+
+html {
+  scrollbar-gutter: stable;
+  overscroll-behavior-x: none;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+[role="button"],
+a {
+  touch-action: manipulation;
+}
+
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+@media (hover: none) {
+  .catalog-card:hover,
+  .catalog-card a:hover {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 640px) {
+  section {
+    scroll-margin-top: 4.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

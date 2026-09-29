@@ -97,10 +97,32 @@ const SERVICES = [
 ];
 
 const ACCESSORY_ITEMS = [
-  { icon: Headphones, label: "Fones e áudio" },
-  { icon: Cable, label: "Cabos e carregadores" },
-  { icon: ShieldCheck, label: "Capas e películas" },
-  { icon: Zap, label: "Carregamento sem fio" },
+  { icon: ShieldCheck, label: "Capinhas" },
+  { icon: ShieldCheck, label: "Películas de vidro" },
+  { icon: ShieldCheck, label: "Películas de hidrogel" },
+  { icon: ShieldCheck, label: "Películas de privacidade" },
+  { icon: ShieldCheck, label: "Películas para câmera" },
+  { icon: Cable, label: "Cabos USB-C" },
+  { icon: Cable, label: "Cabos Lightning" },
+  { icon: Cable, label: "Cabos Micro USB" },
+  { icon: Zap, label: "Carregadores" },
+  { icon: Zap, label: "Carregadores rápidos" },
+  { icon: Zap, label: "Carregadores veiculares" },
+  { icon: Zap, label: "Carregadores sem fio" },
+  { icon: Zap, label: "Fontes" },
+  { icon: Cable, label: "Adaptadores" },
+  { icon: Headphones, label: "Fones Bluetooth" },
+  { icon: Headphones, label: "Fones com fio" },
+  { icon: Headphones, label: "Headsets" },
+  { icon: Smartphone, label: "Suportes veiculares" },
+  { icon: Smartphone, label: "Popsockets" },
+  { icon: Smartphone, label: "Suportes de mesa" },
+  { icon: Smartphone, label: "Smartwatches" },
+  { icon: Smartphone, label: "Pulseiras inteligentes" },
+  { icon: BatteryCharging, label: "Power banks" },
+  { icon: Smartphone, label: "Cartões de memória" },
+  { icon: Cable, label: "Pendrives" },
+  { icon: Cable, label: "Adaptadores OTG" },
 ];
 
 function Index() {
@@ -347,44 +369,65 @@ function Index() {
         </div>
       </section>
 
-      {/* ============ ACESSÓRIOS ============ */}
-      <section id="acessorios" className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="reveal-left overflow-hidden rounded-3xl border border-border">
+      {/* ============ ACESSÓRIOS E PRODUTOS ============ */}
+      <section id="acessorios" className="border-y border-border bg-card">
+        <div className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
+          <div className="reveal mx-auto max-w-3xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              📱 Acessórios e produtos
+            </p>
+            <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
+              Tudo para seu celular
+            </h2>
+            <p className="mt-5 text-lg text-muted-foreground">
+              Capinhas, películas, cabos, carregadores, áudio, wearables e outros
+              produtos para proteger, conectar e complementar seu aparelho.
+            </p>
+          </div>
+
+          <div className="reveal-right mt-12 overflow-hidden rounded-[2rem] border border-border">
             <img
               src={accessories}
-              alt="Acessórios premium para celular"
+              alt="Acessórios e produtos para celulares na Nara Cell"
               width={1024}
               height={1024}
               loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+              className="h-64 w-full object-cover sm:h-80"
             />
           </div>
-          <div className="reveal-right">
-            <p className="text-sm font-semibold uppercase tracking-widest text-primary">
-              Acessórios
-            </p>
-            <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
-              Complete seu setup
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Acessórios originais e selecionados para proteger e potencializar
-              seu aparelho.
-            </p>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {ACCESSORY_ITEMS.map((item, i) => (
-                <div
-                  key={item.label}
-                  className="reveal flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-primary/40"
-                  style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
-                >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
-                    <item.icon className="h-5 w-5" />
-                  </span>
-                  <span className="text-sm font-medium">{item.label}</span>
-                </div>
-              ))}
-            </div>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {ACCESSORY_ITEMS.map((item, i) => (
+              <div
+                key={item.label}
+                className="reveal group flex items-center gap-4 rounded-2xl border border-border bg-background p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+                style={{ "--reveal-delay": `${i * 50}ms` } as React.CSSProperties}
+              >
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                  <item.icon className="h-5 w-5" />
+                </span>
+                <span className="text-sm font-semibold leading-tight">{item.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Consultar produtos
+            </a>
+            <a
+              href="#contato"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:border-primary hover:text-primary"
+            >
+              <MapPin className="h-4 w-4" />
+              Visitar a loja
+            </a>
           </div>
         </div>
       </section>

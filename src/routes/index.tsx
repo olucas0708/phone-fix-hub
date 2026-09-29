@@ -186,7 +186,7 @@ function Index() {
           <div className="relative" data-parallax-speed="-0.08">
             <div className="animate-float-slow relative mx-auto max-w-sm">
               <div className="glow-accent absolute inset-0 rounded-[3rem]" />
-              <img src={heroPhone} alt="Smartphone na Nara Cell" width={1024} height={1280} className="relative rounded-[2rem] border border-border object-cover" />
+              <img src={heroPhone} alt="Smartphone na Nara Cell" width={1024} height={1280} className="image-red-tone relative rounded-[2rem] border border-border object-cover" />
             </div>
             <div data-parallax-speed="-0.18" className="absolute -left-4 top-16 hidden rounded-2xl border border-border bg-card/90 px-4 py-3 backdrop-blur-md sm:block">
               <p className="text-xs text-muted-foreground">Loja física</p>
@@ -257,7 +257,7 @@ function Index() {
           <div data-scene data-scene-x="-80" data-scene-y="40" data-scene-scale="0.08" className="absolute -left-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-primary/25 blur-[120px] will-change-transform" />
           <div data-scene data-scene-x="90" data-scene-y="-50" data-scene-scale="0.1" className="absolute -bottom-48 -right-40 h-[36rem] w-[36rem] rounded-full bg-primary/20 blur-[130px] will-change-transform" />
           <div data-scene data-scene-x="60" data-scene-y="-20" data-scene-rotate="2" className="absolute inset-0 will-change-transform">
-            <img src={phonesDuo} alt="" aria-hidden="true" className="h-full w-full scale-[1.12] object-cover opacity-25 blur-[2px]" />
+            <img src={phonesDuo} alt="" aria-hidden="true" className="image-red-tone h-full w-full scale-[1.12] object-cover opacity-25 blur-[2px]" />
           </div>
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.94)_0%,rgba(0,0,0,0.78)_34%,rgba(0,0,0,0.18)_68%,rgba(0,0,0,0.55)_100%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_55%,transparent_0%,rgba(0,0,0,0.15)_35%,rgba(0,0,0,0.78)_100%)]" />
@@ -283,7 +283,7 @@ function Index() {
               </div>
               <div data-scene data-scene-mouse="18" data-scene-spin-y="360" data-scene-rotate="-4" data-scene-scale="0.05" className="absolute left-1/2 top-1/2 w-[86%] -translate-x-1/2 -translate-y-1/2 will-change-transform" style={{ transformStyle: "preserve-3d" }}>
                 <div className="overflow-hidden rounded-[2rem] border border-white/20 bg-black/50 p-2 shadow-[0_40px_120px_rgba(0,0,0,0.9)] backdrop-blur-sm sm:rounded-[2.5rem] sm:p-3">
-                  <img src={phonesDuo} alt="Smartphones em destaque na Nara Cell" width={1024} height={1024} loading="lazy" className="h-[350px] w-full rounded-[1.5rem] object-cover sm:h-[450px] sm:rounded-[2rem]" />
+                  <img src={phonesDuo} alt="Smartphones em destaque na Nara Cell" width={1024} height={1024} loading="lazy" className="image-red-tone h-[350px] w-full rounded-[1.5rem] object-cover sm:h-[450px] sm:rounded-[2rem]" />
                 </div>
               </div>
               <div data-scene data-scene-mouse="10" data-scene-x="120" data-scene-y="-80" data-scene-rotate="7" className="absolute right-0 top-8 z-10 rounded-2xl border border-white/15 bg-black/70 px-4 py-3 shadow-2xl backdrop-blur-xl sm:right-4 sm:top-14">
@@ -401,7 +401,7 @@ function Index() {
             <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">Tudo para seu celular</h2>
             <p className="mt-5 text-lg text-muted-foreground">Capinhas, películas, cabos, carregadores, áudio e outros produtos para proteger, conectar e complementar seu aparelho.</p>
           </div>
-          <div className="reveal-right mt-12 overflow-hidden rounded-[2rem] border border-border"><img src={accessories} alt="Acessórios para celulares na Nara Cell" width={1024} height={1024} loading="lazy" className="h-64 w-full object-cover sm:h-80" /></div>
+          <div className="reveal-right mt-12 overflow-hidden rounded-[2rem] border border-border"><img src={accessories} alt="Acessórios para celulares na Nara Cell" width={1024} height={1024} loading="lazy" className="image-red-tone h-64 w-full object-cover sm:h-80" /></div>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {ACCESSORY_ITEMS.map((item, i) => (
               <a key={item.label} href={createWhatsAppLink(`Olá! Vim pelo site da Nara Cell e quero consultar sobre: ${item.label}.`)} target="_blank" rel="noopener noreferrer" className="reveal group flex items-center gap-4 rounded-2xl border border-border bg-background p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg" style={{ "--reveal-delay": `${i * 50}ms` } as React.CSSProperties}>
@@ -452,9 +452,9 @@ function Index() {
           </div>
           <div className="overflow-hidden rounded-[2rem] border border-border bg-black p-2 shadow-2xl">
             <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem]">
-              <img src={repair} alt="Assistência técnica Nara Cell" className="absolute inset-0 h-full w-full object-cover grayscale" />
+              <img src={repair} alt="Assistência técnica Nara Cell" className="image-red-tone absolute inset-0 h-full w-full object-cover grayscale" />
               <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - repairPosition}% 0 0)` }}>
-                <img src={repair} alt="" aria-hidden="true" className="h-full w-full object-cover" />
+                <img src={repair} alt="" aria-hidden="true" className="image-red-tone h-full w-full object-cover" />
               </div>
               <div className="pointer-events-none absolute inset-y-0" style={{ left: `${repairPosition}%` }}><div className="h-full w-px bg-white shadow-[0_0_18px_rgba(255,255,255,0.8)]" /></div>
               <span className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white">Cuidado</span>
@@ -537,9 +537,9 @@ function Index() {
           </div>
           <div className="reveal mt-10 overflow-hidden rounded-[2rem] border border-border bg-background">
             <div className="grid gap-0 md:grid-cols-3">
-              <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]"><img src={heroPhone} alt="Celulares na Nara Cell" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" /></div>
-              <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]"><img src={accessories} alt="Acessórios na Nara Cell" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" /></div>
-              <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]"><img src={repair} alt="Assistência técnica na Nara Cell" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" /></div>
+              <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]"><img src={heroPhone} alt="Celulares na Nara Cell" className="image-red-tone h-full w-full object-cover transition-transform duration-700 hover:scale-105" /></div>
+              <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]"><img src={accessories} alt="Acessórios na Nara Cell" className="image-red-tone h-full w-full object-cover transition-transform duration-700 hover:scale-105" /></div>
+              <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]"><img src={repair} alt="Assistência técnica na Nara Cell" className="image-red-tone h-full w-full object-cover transition-transform duration-700 hover:scale-105" /></div>
             </div>
           </div>
         </div>

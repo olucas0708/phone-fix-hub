@@ -47,25 +47,25 @@ export const Route = createFileRoute("/")({
 
 const PHONES = [
   {
-    name: "Nara X Pro",
-    tag: "Flagship",
-    price: "R$ 4.999",
-    oldPrice: "R$ 5.799",
-    specs: ["256 GB", "Câmera 200 MP", "5G"],
-  },
-  {
-    name: "Nara X",
-    tag: "Mais vendido",
-    price: "R$ 3.499",
+    name: "iPhone",
+    tag: "Apple",
+    price: "Consulte",
     oldPrice: null,
-    specs: ["128 GB", "Tela 120 Hz", "5G"],
+    specs: ["Novos", "Seminovos", "Acessórios"],
   },
   {
-    name: "Nara Lite",
-    tag: "Custo-benefício",
-    price: "R$ 1.899",
-    oldPrice: "R$ 2.199",
-    specs: ["128 GB", "Bateria 2 dias", "5G"],
+    name: "Samsung",
+    tag: "Galaxy",
+    price: "Consulte",
+    oldPrice: null,
+    specs: ["Linha Galaxy", "Novos", "Seminovos"],
+  },
+  {
+    name: "Xiaomi",
+    tag: "Tecnologia",
+    price: "Consulte",
+    oldPrice: null,
+    specs: ["Smartphones", "Acessórios", "Ofertas"],
   },
 ];
 
@@ -143,8 +143,8 @@ function Index() {
               className="reveal mt-6 max-w-md text-lg text-muted-foreground"
               style={{ "--reveal-delay": "200ms" } as React.CSSProperties}
             >
-              Os melhores celulares, acessórios premium e um laboratório de
-              reparo de confiança — tudo em um só lugar.
+              Compra e venda de celulares, acessórios e assistência técnica em um só lugar.
+              Atendimento presencial e pelo WhatsApp.
             </p>
             <div
               className="reveal mt-10 flex flex-wrap items-center gap-4"
@@ -185,7 +185,7 @@ function Index() {
               className="absolute -left-4 top-16 hidden rounded-2xl border border-border bg-card/90 px-4 py-3 backdrop-blur-md sm:block"
             >
               <p className="text-xs text-muted-foreground">A partir de</p>
-              <p className="font-display text-xl font-bold text-primary">R$ 1.899</p>
+              <p className="font-display text-xl font-bold text-primary">Nº 505</p>
             </div>
             <div
               data-parallax-speed="-0.12"
@@ -193,7 +193,7 @@ function Index() {
             >
               <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-                Garantia de 1 ano
+                Loja física Nara Cell
               </p>
             </div>
           </div>
@@ -206,12 +206,12 @@ function Index() {
           {Array.from({ length: 2 }).map((_, dup) => (
             <div key={dup} className="flex gap-12" aria-hidden={dup === 1}>
               {[
-                "Entrega rápida",
-                "Garantia de 1 ano",
-                "Diagnóstico gratuito",
-                "Peças originais",
-                "Pagamento facilitado",
-                "Suporte especializado",
+                "Compra e venda de celulares",
+                "Assistência técnica",
+                "Acessórios",
+                "Atendimento pelo WhatsApp",
+                "Loja física",
+                "Orçamento",
               ].map((item) => (
                 <span
                   key={item}
@@ -233,10 +233,10 @@ function Index() {
             Celulares
           </p>
           <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
-            Os lançamentos mais desejados
+            Celulares e smartphones
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Modelos selecionados com as melhores condições do mercado.
+            Encontre seu próximo aparelho. Consulte modelos, disponibilidade e condições direto com a equipe Nara Cell.
           </p>
         </div>
 
@@ -288,7 +288,7 @@ function Index() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="grid h-11 w-11 place-items-center rounded-full border border-border text-muted-foreground transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground"
-                  aria-label={`Comprar ${phone.name}`}
+                  aria-label={`Consultar ${phone.name}`}
                 >
                   <ArrowRight className="h-4 w-4" />
                 </a>
@@ -306,11 +306,10 @@ function Index() {
               Ofertas da semana
             </p>
             <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
-              Até <span className="text-primary">30% off</span> em selecionados
+              Ofertas e condições especiais
             </h2>
             <p className="mt-4 max-w-md text-muted-foreground">
-              Condições especiais por tempo limitado em smartphones, smartwatches
-              e acessórios. Consulte disponibilidade no WhatsApp.
+              Consulte no WhatsApp as ofertas, aparelhos disponíveis e condições especiais do momento.
             </p>
             <a
               href={WHATSAPP_URL}
@@ -324,17 +323,17 @@ function Index() {
           </div>
           <div className="reveal-right grid grid-cols-2 gap-4">
             {[
-              { label: "Smartphones", value: "-30%" },
-              { label: "Smartwatches", value: "-25%" },
-              { label: "Fones", value: "-20%" },
-              { label: "Películas", value: "-15%" },
+              { label: "iPhone", value: "Apple" },
+              { label: "Galaxy", value: "Samsung" },
+              { label: "Xiaomi", value: "Smartphones" },
+              { label: "Acessórios", value: "Para seu aparelho" },
             ].map((deal, i) => (
               <div
                 key={deal.label}
                 className="rounded-3xl border border-border bg-background p-6 text-center transition-colors hover:border-primary/40"
                 style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
               >
-                <p className="font-display text-3xl font-bold text-primary">
+                <p className="font-display text-2xl font-bold text-primary">
                   {deal.value}
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">{deal.label}</p>
@@ -451,17 +450,16 @@ function Index() {
             Tecnologia com confiança
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            Há anos no mercado, a Nara Cell une curadoria de produtos, preço
-            justo e um laboratório de reparo de alto padrão. Nosso compromisso
-            é simples: você sai daqui com o aparelho certo — ou com o seu de
-            volta funcionando como novo.
+            A Nara Cell reúne compra e venda de celulares, acessórios e assistência técnica.
+            A proposta é oferecer atendimento próximo, orçamento claro e suporte
+            para você encontrar o aparelho certo ou deixar o seu funcionando novamente.
           </p>
         </div>
         <div className="mt-14 grid gap-6 sm:grid-cols-3">
           {[
-            { value: "+5.000", label: "Aparelhos reparados" },
-            { value: "98%", label: "Clientes satisfeitos" },
-            { value: "90 dias", label: "Garantia nos reparos" },
+            { value: "CELULARES", label: "Compra e venda" },
+            { value: "ASSISTÊNCIA", label: "Reparos e diagnóstico" },
+            { value: "ACESSÓRIOS", label: "Capas, cabos e muito mais" },
           ].map((stat, i) => (
             <div
               key={stat.label}
@@ -483,7 +481,7 @@ function Index() {
               Fale com a gente
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Tire dúvidas, peça um orçamento ou reserve seu próximo smartphone.
+              Tire dúvidas, consulte aparelhos, peça um orçamento ou fale com nossa equipe.
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <a
@@ -496,7 +494,7 @@ function Index() {
                 WhatsApp
               </a>
               <a
-                href="tel:+5500000000000"
+                href="tel:+5534991974536"
                 className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:border-primary/50 hover:text-primary"
               >
                 <Phone className="h-4 w-4" />
@@ -505,7 +503,7 @@ function Index() {
             </div>
             <p className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <MapPin className="h-4 w-4 text-primary" />
-              Av. Principal, 123 — Centro (endereço de exemplo)
+              Loja física • Nº 505
             </p>
           </div>
         </div>

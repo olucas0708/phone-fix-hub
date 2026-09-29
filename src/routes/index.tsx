@@ -75,8 +75,11 @@ const SERVICES = [
   { icon: Cable, title: "Troca de conector de carga" },
   { icon: Wrench, title: "Reparo de placa" },
   { icon: ShieldCheck, title: "Diagnóstico" },
-  { icon: MessageCircle, title: "Outros serviços", whatsapp: true },
+  { icon: MessageCircle, title: "Outros serviços" },
 ];
+
+const createWhatsAppLink = (message: string) =>
+  `https://wa.me/5534991974536?text=${encodeURIComponent(message)}`;
 
 const ACCESSORY_ITEMS = [
   { icon: ShieldCheck, label: "Capinhas" },
@@ -105,11 +108,11 @@ function Index() {
         {/* glow decorativo */}
         <div
           data-parallax-speed="0.15"
-          className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/10 blur-[140px]"
+          className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/10 blur-[110px]"
         />
         <div
           data-parallax-speed="0.3"
-          className="pointer-events-none absolute right-[-120px] top-1/3 h-[400px] w-[400px] rounded-full bg-primary/5 blur-[120px]"
+          className="pointer-events-none absolute right-[-120px] top-1/3 h-[400px] w-[400px] rounded-full bg-primary/5 blur-[100px]"
         />
 
         <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-4 pb-24 pt-32 sm:px-6 lg:grid-cols-2 lg:px-8">
@@ -452,12 +455,11 @@ function Index() {
             {ACCESSORY_ITEMS.map((item, i) => (
               <a
                 key={item.label}
-                href={item.whatsapp ? WHATSAPP_URL : "#"}
-                target={item.whatsapp ? "_blank" : undefined}
-                rel={item.whatsapp ? "noopener noreferrer" : undefined}
+                href={createWhatsAppLink(`Olá! Vim pelo site da Nara Cell e quero consultar sobre: ${item.label}.`)}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="reveal group flex items-center gap-4 rounded-2xl border border-border bg-background p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
                 style={{ "--reveal-delay": `${i * 50}ms` } as React.CSSProperties}
-                onClick={item.whatsapp ? undefined : (e) => e.preventDefault()}
               >
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
                   <item.icon className="h-5 w-5" />
@@ -519,12 +521,11 @@ function Index() {
             {SERVICES.map((service, i) => (
               <a
                 key={service.title}
-                href={service.whatsapp ? WHATSAPP_URL : "#"}
-                target={service.whatsapp ? "_blank" : undefined}
-                rel={service.whatsapp ? "noopener noreferrer" : undefined}
+                href={createWhatsAppLink(`Olá! Vim pelo site da Nara Cell e quero consultar sobre: ${service.title}.`)}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="reveal flex items-center gap-4 rounded-2xl border border-border bg-card/80 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
                 style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}
-                onClick={service.whatsapp ? undefined : (e) => e.preventDefault()}
               >
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
                   <service.icon className="h-5 w-5" />

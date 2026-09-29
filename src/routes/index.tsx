@@ -409,16 +409,22 @@ function Index() {
               { label: "Xiaomi", value: "Smartphones" },
               { label: "Acessórios", value: "Para seu aparelho" },
             ].map((deal, i) => (
-              <div
+              <a
                 key={deal.label}
-                className="rounded-3xl border border-border bg-background p-6 text-center transition-colors hover:border-primary/40"
+                href={createWhatsAppLink(`Olá! Vim pelo site da Nara Cell e quero consultar a oferta de ${deal.label}.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group rounded-3xl border border-border bg-background p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
                 style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
               >
-                <p className="font-display text-2xl font-bold text-primary">
+                <p className="font-display text-2xl font-bold text-primary transition-transform duration-300 group-hover:scale-105">
                   {deal.value}
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">{deal.label}</p>
-              </div>
+                <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  Consultar <ArrowRight className="h-3 w-3" />
+                </span>
+              </a>
             ))}
           </div>
         </div>

@@ -16,6 +16,7 @@ import {
   Phone,
   Search,
   ShieldCheck,
+  SlidersHorizontal,
   Smartphone,
   Sparkles,
   Star,
@@ -111,6 +112,10 @@ function Index() {
   const [catalogFilter, setCatalogFilter] = useState("Todos");
   const [compare, setCompare] = useState(["iPhone", "Samsung"]);
   const [diagnosis, setDiagnosis] = useState("");
+  const [leadIntent, setLeadIntent] = useState("comprar");
+  const [leadBrand, setLeadBrand] = useState("Qualquer marca");
+  const [leadBudget, setLeadBudget] = useState("Ainda não defini");
+  const [leadNeed, setLeadNeed] = useState("Quero orientação");
   const [repairPosition, setRepairPosition] = useState(52);
   const [isRepairing, setIsRepairing] = useState(false);
   const [repairStoryStep, setRepairStoryStep] = useState(0);
@@ -148,6 +153,10 @@ function Index() {
         `Olá! Vim pelo site da Nara Cell. Meu celular está com o problema: ${diagnosis}. Quero saber sobre diagnóstico e orçamento.`,
       )
     : WHATSAPP_URL;
+
+  const leadLink = createWhatsAppLink(
+    `Olá! Vim pelo site da Nara Cell. Quero atendimento sobre ${leadIntent}. Marca/interesse: ${leadBrand}. Faixa de investimento: ${leadBudget}. Preciso de: ${leadNeed}. Pode me orientar?`,
+  );
 
   const toggleCompare = (name: string) => {
     setCompare((current) => {
@@ -263,6 +272,96 @@ function Index() {
                 <span className="mt-5 inline-flex items-center gap-1 text-xs font-bold text-primary">Continuar <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" /></span>
               </a>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ CENTRAL DE ATENDIMENTO INTELIGENTE ============ */}
+      <section id="atendimento" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="reveal overflow-hidden rounded-[2.5rem] border border-primary/20 bg-card shadow-2xl">
+          <div className="grid gap-0 lg:grid-cols-[0.8fr_1.2fr]">
+            <div className="relative overflow-hidden bg-black p-7 sm:p-10">
+              <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/20 blur-[90px]" />
+              <div className="relative">
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+                  <Sparkles className="h-3.5 w-3.5" /> Atendimento inteligente
+                </span>
+                <h2 className="mt-5 font-display text-3xl font-black leading-tight text-white sm:text-4xl">
+                  Chegue no WhatsApp já com o que você precisa.
+                </h2>
+                <p className="mt-4 text-sm leading-6 text-white/55">
+                  Monte seu pedido em poucos toques. A mensagem é preparada automaticamente para facilitar o atendimento da equipe.
+                </p>
+                <div className="mt-7 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+                  {[
+                    ["01", "Escolha seu objetivo", "Compra, acessório ou reparo."],
+                    ["02", "Dê contexto", "Marca, orçamento e necessidade."],
+                    ["03", "Fale com a equipe", "Tudo chega pronto no WhatsApp."],
+                  ].map(([number, title, text]) => (
+                    <div key={number} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                      <span className="text-[10px] font-bold tracking-widest text-primary">{number}</span>
+                      <p className="mt-1 font-display font-bold text-white">{title}</p>
+                      <p className="mt-1 text-xs leading-5 text-white/40">{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-7 sm:p-10">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="h-5 w-5 text-primary" />
+                <p className="font-display text-xl font-bold">Monte seu atendimento</p>
+              </div>
+
+              <div className="mt-7">
+                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">O que você procura?</p>
+                <div className="mt-3 grid gap-2 sm:grid-cols-3">
+                  {[
+                    ["comprar um celular", "Comprar celular"],
+                    ["comprar acessórios", "Acessórios"],
+                    ["fazer um reparo", "Reparo"],
+                  ].map(([value, label]) => (
+                    <button key={value} type="button" onClick={() => setLeadIntent(value)} aria-pressed={leadIntent === value}
+                      className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition-all ${leadIntent === value ? "border-primary bg-primary/10 text-primary" : "border-border bg-background text-muted-foreground hover:border-primary/40"}`}>
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Marca / interesse</span>
+                  <select value={leadBrand} onChange={(e) => setLeadBrand(e.target.value)} className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-4 text-sm outline-none transition-colors focus:border-primary">
+                    {["Qualquer marca", "iPhone / Apple", "Samsung", "Xiaomi", "Outra marca"].map((item) => <option key={item}>{item}</option>)}
+                  </select>
+                </label>
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Faixa de investimento</span>
+                  <select value={leadBudget} onChange={(e) => setLeadBudget(e.target.value)} className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-4 text-sm outline-none transition-colors focus:border-primary">
+                    {["Ainda não defini", "Até R$ 1.000", "R$ 1.000 a R$ 2.000", "R$ 2.000 a R$ 4.000", "Acima de R$ 4.000"].map((item) => <option key={item}>{item}</option>)}
+                  </select>
+                </label>
+              </div>
+
+              <label className="mt-5 block">
+                <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">O que você precisa?</span>
+                <select value={leadNeed} onChange={(e) => setLeadNeed(e.target.value)} className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-4 text-sm outline-none transition-colors focus:border-primary">
+                  {["Quero orientação", "Ver modelos disponíveis", "Comparar opções", "Saber valor do reparo", "Consultar estoque", "Agendar atendimento"].map((item) => <option key={item}>{item}</option>)}
+                </select>
+              </label>
+
+              <div className="mt-6 flex flex-col gap-3 rounded-2xl border border-primary/20 bg-primary/5 p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary">Sua mensagem está pronta</p>
+                  <p className="mt-1 text-xs text-muted-foreground">A equipe recebe seu contexto e pode continuar o atendimento.</p>
+                </div>
+                <a href={leadLink} target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-transform hover:scale-105">
+                  <MessageCircle className="h-4 w-4" /> Continuar no WhatsApp
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

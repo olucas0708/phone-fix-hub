@@ -158,7 +158,7 @@ function Index() {
   };
 
   return (
-    <div ref={revealRef} className="min-h-screen bg-background text-foreground">
+    <div id="conteudo" ref={revealRef} tabIndex={-1} className="min-h-screen bg-background text-foreground outline-none">
       <Header />
 
       {/* ============ HERO ============ */}
@@ -209,7 +209,7 @@ function Index() {
           <div className="relative" data-parallax-speed="-0.08">
             <div className="animate-float-slow relative mx-auto max-w-sm">
               <div className="glow-accent absolute inset-0 rounded-[3rem]" />
-              <img src={heroPhone} alt="Smartphone na Nara Cell" width={1024} height={1280} className="image-red-tone relative rounded-[2rem] border border-border object-cover" />
+              <img src={heroPhone} alt="Smartphone em destaque na Nara Cell" width={1024} height={1280} fetchPriority="high" decoding="async" className="image-red-tone relative rounded-[2rem] border border-border object-cover" />
             </div>
             <div data-parallax-speed="-0.18" className="absolute -left-4 top-16 hidden rounded-2xl border border-border bg-card/90 px-4 py-3 backdrop-blur-md sm:block">
               <p className="text-xs text-muted-foreground">Loja física</p>

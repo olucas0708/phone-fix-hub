@@ -222,10 +222,6 @@ function Index() {
               <div className="glow-accent absolute inset-0 rounded-[3rem]" />
               <img src={heroPhone} alt="Smartphone em destaque na Nara Cell" width={1024} height={1280} fetchPriority="high" decoding="async" className="image-red-tone relative rounded-[2rem] border border-border object-cover" />
             </div>
-            <div data-parallax-speed="-0.18" className="absolute -left-4 top-16 hidden rounded-2xl border border-border bg-card/90 px-4 py-3 backdrop-blur-md sm:block">
-              <p className="text-xs text-muted-foreground">Loja física</p>
-              <p className="font-display text-xl font-bold text-primary">Nº 505</p>
-            </div>
             <div data-parallax-speed="-0.12" className="absolute -right-2 bottom-24 hidden rounded-2xl border border-border bg-card/90 px-4 py-3 backdrop-blur-md sm:block">
               <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Atendimento Nara Cell

@@ -452,7 +452,7 @@ function Index() {
           </div>
           <div className="overflow-hidden rounded-[2rem] border border-border bg-black p-2 shadow-2xl">
             <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem]">
-              <img src={repair} alt="Assistência técnica Nara Cell" className="image-red-tone absolute inset-0 h-full w-full object-cover grayscale" />
+              <img src={repair} alt="Assistência técnica Nara Cell" className="image-red-tone absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - repairPosition}% 0 0)` }}>
                 <img src={repair} alt="" aria-hidden="true" className="image-red-tone h-full w-full object-cover" />
               </div>

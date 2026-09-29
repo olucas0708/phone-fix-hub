@@ -454,7 +454,7 @@ function Index() {
             <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem]">
               <img src={repair} alt="Assistência técnica Nara Cell" className="image-red-tone absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - repairPosition}% 0 0)` }}>
-                <img src={repair} alt="" aria-hidden="true" className="image-red-tone h-full w-full object-cover grayscale" />
+                <img src={repair} alt="" aria-hidden="true" className="comparison-grayscale h-full w-full object-cover" />
               </div>
               <div className="pointer-events-none absolute inset-y-0" style={{ left: `${repairPosition}%` }}><div className="h-full w-px bg-white shadow-[0_0_18px_rgba(255,255,255,0.8)]" /></div>
               <span className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white">Cuidado</span>

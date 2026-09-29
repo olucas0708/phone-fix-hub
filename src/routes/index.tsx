@@ -343,12 +343,12 @@ function Index() {
           </div>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {filteredPhones.map((phone, i) => (
-              <article key={phone.name} className="reveal group rounded-3xl border border-border bg-background p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40" style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}>
-                <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">{phone.tag}</span>
+              <article key={phone.name} className="catalog-card reveal group overflow-hidden rounded-3xl border border-border bg-background transition-all duration-500 hover:-translate-y-2 hover:border-primary/50" style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}>
+                <div className="relative mb-6 h-48 overflow-hidden bg-black/40"><img src={phonesDuo} alt="" aria-hidden="true" className="image-red-tone h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" /><div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" /></div><div className="px-7 pb-7"><span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">{phone.tag}</span>
                 <h3 className="mt-4 font-display text-2xl font-bold">{phone.name}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{phone.type} • Consulte disponibilidade</p>
                 <ul className="mt-5 flex flex-wrap gap-2">{phone.specs.map((spec) => <li key={spec} className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground">{spec}</li>)}</ul>
-                <a href={createWhatsAppLink(`Olá! Vim pelo site da Nara Cell e quero consultar celulares da marca ${phone.name}.`)} target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-transform hover:scale-105">Consultar {phone.name} <ArrowRight className="h-4 w-4" /></a>
+                <a href={createWhatsAppLink(`Olá! Vim pelo site da Nara Cell e quero consultar celulares da marca ${phone.name}.`)} target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-transform hover:scale-105">Consultar {phone.name} <ArrowRight className="h-4 w-4" /></a></div>
               </article>
             ))}
           </div>

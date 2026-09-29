@@ -192,3 +192,19 @@
 .comparison-grayscale {
   filter: grayscale(1) !important;
 }
+
+/* Interactive repair scene */
+.repair-hand-idle { opacity: .78; }
+.repair-hand-active { opacity: 1; animation: repair-hand-work .42s ease-in-out infinite alternate; }
+.repair-tool { animation: repair-tool-turn .34s linear infinite; }
+@keyframes repair-hand-work {
+  from { margin-top: -2px; rotate: -7deg; }
+  to { margin-top: 7px; rotate: 7deg; }
+}
+@keyframes repair-tool-turn {
+  from { rotate: -25deg; }
+  to { rotate: 18deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .repair-hand-active, .repair-tool { animation: none; }
+}

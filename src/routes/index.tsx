@@ -473,38 +473,53 @@ function Index() {
         </div>
       </section>
 
-      {/* ============ CONTATO ============ */}
+      {/* ============ CONTATO / LOCALIZAÇÃO ============ */}
       <section id="contato" className="border-t border-border bg-card">
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-          <div className="reveal mx-auto max-w-2xl text-center">
-            <h2 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
-              Fale com a gente
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Tire dúvidas, consulte aparelhos, peça um orçamento ou fale com nossa equipe.
-            </p>
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105"
-              >
-                <MessageCircle className="h-4 w-4" />
-                WhatsApp
-              </a>
-              <a
-                href="tel:+5534991974536"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold transition-colors hover:border-primary/50 hover:text-primary"
-              >
-                <Phone className="h-4 w-4" />
-                Ligar agora
-              </a>
+          <div className="reveal grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
+            <div className="flex flex-col justify-center">
+              <span className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-primary">
+                <MapPin className="h-3.5 w-3.5" />
+                Nossa loja
+              </span>
+              <h2 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
+                Visite a <span className="text-primary">Nara Cell</span>
+              </h2>
+              <p className="mt-5 text-muted-foreground">
+                Estamos em Uberlândia, no bairro Presidente Roosevelt. Venha conhecer a loja,
+                consultar aparelhos, acessórios ou deixar seu celular para avaliação.
+              </p>
+              <div className="mt-8 space-y-5">
+                <div className="flex gap-4">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary"><MapPin className="h-5 w-5" /></span>
+                  <div><p className="font-semibold">Endereço</p><p className="mt-1 text-sm leading-6 text-muted-foreground">Av. João Bernardes de Souza, 505<br />Presidente Roosevelt • Uberlândia/MG<br />CEP 38401-016</p></div>
+                </div>
+                <div className="flex gap-4">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary"><Phone className="h-5 w-5" /></span>
+                  <div><p className="font-semibold">Telefone / WhatsApp</p><p className="mt-1 text-sm text-muted-foreground">(34) 99197-4536</p></div>
+                </div>
+                <div className="flex gap-4">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary"><Zap className="h-5 w-5" /></span>
+                  <div><p className="font-semibold">Horário de atendimento</p><p className="mt-1 text-sm leading-6 text-muted-foreground">Segunda a sexta: 08:30 às 19:00<br />Sábado: 08:30 às 14:00<br />Domingo: fechado</p></div>
+                </div>
+              </div>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <a href="https://www.google.com/maps/search/?api=1&query=Nara+Cell+Celulares%2C+Av.+Jo%C3%A3o+Bernardes+de+Souza%2C+505%2C+Uberl%C3%A2ndia%2C+MG" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"><MapPin className="h-4 w-4" />Como chegar</a>
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-semibold transition-colors hover:border-primary hover:text-primary"><MessageCircle className="h-4 w-4" />WhatsApp</a>
+              </div>
             </div>
-            <p className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-              <MapPin className="h-4 w-4 text-primary" />
-              Loja física • Nº 505
-            </p>
+            <div className="overflow-hidden rounded-[2rem] border border-border bg-background shadow-2xl">
+              <div className="relative h-full min-h-[420px]">
+                <iframe title="Nara Cell no Google Maps" src="https://www.google.com/maps?q=Nara+Cell+Celulares%2C+Av.+Jo%C3%A3o+Bernardes+de+Souza%2C+505%2C+Presidente+Roosevelt%2C+Uberl%C3%A2ndia+-+MG&output=embed" className="absolute inset-0 h-full w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+              </div>
+            </div>
+          </div>
+          <div className="reveal mt-10 overflow-hidden rounded-[2rem] border border-border bg-background">
+            <div className="grid gap-0 md:grid-cols-3">
+              <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]"><img src={heroPhone} alt="Celulares disponíveis na Nara Cell" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" /></div>
+              <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]"><img src={accessories} alt="Acessórios para celulares na Nara Cell" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" /></div>
+              <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]"><img src={repair} alt="Assistência técnica da Nara Cell" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" /></div>
+            </div>
           </div>
         </div>
       </section>

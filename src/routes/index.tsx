@@ -308,15 +308,15 @@ function Index() {
               </div>
 
               <div data-scene data-scene-x="120" data-scene-y="-80" data-scene-rotate="7" className="absolute right-0 top-8 z-10 rounded-2xl border border-white/15 bg-black/70 px-4 py-3 shadow-2xl backdrop-blur-xl sm:right-4 sm:top-14">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">360°</p>
-                <p className="mt-1 font-display text-lg font-bold text-white">Role para girar</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Nara Cell</p>
+                <p className="mt-1 font-display text-lg font-bold text-white">Tecnologia que impressiona</p>
               </div>
 
               <div data-scene data-scene-x="-110" data-scene-y="80" data-scene-rotate="-6" className="absolute bottom-8 left-0 z-10 rounded-2xl border border-primary/30 bg-black/75 px-4 py-3 shadow-2xl backdrop-blur-xl sm:left-4 sm:bottom-14">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50">Experiência Nara Cell</p>
                 <p className="mt-1 flex items-center gap-2 font-semibold text-white">
                   <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
-                  Scroll = 360° de rotação
+                  Nara Cell
                 </p>
               </div>
             </div>

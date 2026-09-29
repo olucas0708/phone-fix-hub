@@ -457,9 +457,20 @@ function Index() {
                 <img src={repair} alt="" aria-hidden="true" className="comparison-grayscale h-full w-full object-cover" />
               </div>
               <div className="pointer-events-none absolute inset-y-0" style={{ left: `${repairPosition}%` }}><div className="h-full w-px bg-white shadow-[0_0_18px_rgba(255,255,255,0.8)]" /></div>
+              <div
+                className={`pointer-events-none absolute z-20 transition-[left,transform] duration-150 ${isRepairing ? "repair-hand-active" : "repair-hand-idle"}`}
+                style={{ left: `clamp(10%, ${repairPosition}%, 90%)`, top: "58%", transform: "translate(-50%, -50%)" }}
+                aria-hidden="true"
+              >
+                <div className="relative">
+                  <div className="absolute -inset-5 rounded-full bg-primary/20 blur-xl" />
+                  <Hand className="relative h-12 w-12 rotate-[-18deg] fill-white stroke-black drop-shadow-[0_6px_8px_rgba(0,0,0,0.45)]" />
+                  <Wrench className="repair-tool absolute -right-5 -bottom-3 h-7 w-7 rotate-[-25deg] rounded-full bg-primary p-1 text-primary-foreground shadow-lg" />
+                </div>
+              </div>
               <span className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white">Cuidado</span>
               <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary-foreground">Detalhe</span>
-              <input aria-label="Comparar imagem" type="range" min="5" max="95" value={repairPosition} onChange={(event) => setRepairPosition(Number(event.target.value))} className="absolute inset-x-5 bottom-5 w-[calc(100%-2.5rem)] accent-[var(--primary)]" />
+              <input aria-label="Comparar imagem" type="range" min="5" max="95" value={repairPosition} onPointerDown={() => setIsRepairing(true)} onPointerUp={() => setIsRepairing(false)} onPointerCancel={() => setIsRepairing(false)} onChange={(event) => setRepairPosition(Number(event.target.value))} className="absolute inset-x-5 bottom-5 w-[calc(100%-2.5rem)] accent-[var(--primary)]" />
             </div>
           </div>
         </div>

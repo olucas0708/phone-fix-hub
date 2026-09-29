@@ -12,6 +12,52 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
+const NARA_CELL_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "@id": "#nara-cell",
+  name: "Nara Cell Celulares",
+  alternateName: "Nara Cell",
+  description:
+    "Loja de celulares, acessórios e assistência técnica em Uberlândia, Minas Gerais.",
+  telephone: "+55 34 99197-4536",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Av. João Bernardes de Souza, 505",
+    addressLocality: "Uberlândia",
+    addressRegion: "MG",
+    postalCode: "38401-016",
+    addressCountry: "BR",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:30",
+      closes: "19:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "08:30",
+      closes: "14:00",
+    },
+  ],
+  sameAs: ["https://www.instagram.com/naracellcelulares/"],
+  areaServed: {
+    "@type": "City",
+    name: "Uberlândia",
+  },
+  knowsAbout: [
+    "smartphones",
+    "acessórios para celulares",
+    "assistência técnica de celulares",
+    "troca de tela",
+    "troca de bateria",
+    "reparo de placa",
+  ],
+};
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -80,18 +126,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#0f1010" },
       { name: "color-scheme", content: "dark" },
       { name: "robots", content: "index, follow" },
-      { title: "Nara Cell — Celulares, Acessórios e Assistência Técnica" },
-      {
-        name: "description",
-        content:
-          "Nara Cell: smartphones, acessórios e assistência técnica especializada. Tecnologia, confiança e velocidade em um só lugar.",
-      },
-      { property: "og:type", content: "website" },
+      { name: "application-name", content: "Nara Cell" },
+      { name: "format-detection", content: "telephone=yes" },
+      { name: "description", content: "Nara Cell: smartphones, acessórios e assistência técnica especializada em Uberlândia. Tecnologia, atendimento e reparos em um só lugar." },
+      { property: "og:type", content: "business.business" },
+      { property: "og:site_name", content: "Nara Cell" },
+      { property: "og:locale", content: "pt_BR" },
+      { property: "og:title", content: "Nara Cell — Celulares, Acessórios e Assistência Técnica" },
+      { property: "og:description", content: "Smartphones, acessórios e assistência técnica especializada em Uberlândia." },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Nara Cell — Celulares, Acessórios e Assistência Técnica" },
+      { name: "twitter:description", content: "Smartphones, acessórios e assistência técnica especializada em Uberlândia." },
+      { title: "Nara Cell — Celulares, Acessórios e Assistência Técnica" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -111,6 +162,10 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="pt-BR">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(NARA_CELL_SCHEMA) }}
+        />
       </head>
       <body>
         {children}

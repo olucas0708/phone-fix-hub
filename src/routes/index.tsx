@@ -90,6 +90,7 @@ const ACCESSORY_ITEMS = [
 function Index() {
   const revealRef = useScrollReveal<HTMLDivElement>();
   const parallaxRef = useParallax<HTMLDivElement>();
+  const phonesShowcaseRef = useParallax<HTMLDivElement>();
 
   return (
     <div ref={revealRef} className="min-h-screen bg-background text-foreground">
@@ -228,15 +229,43 @@ function Index() {
           </p>
         </div>
 
-        <div className="reveal-right mt-12 overflow-hidden rounded-3xl border border-border">
-          <img
-            src={phonesDuo}
-            alt="Smartphones em destaque"
-            width={1024}
-            height={1024}
-            loading="lazy"
-            className="h-72 w-full object-cover sm:h-96"
+        <div
+          ref={phonesShowcaseRef}
+          className="reveal-right relative mt-12 overflow-hidden rounded-[2rem] border border-border bg-black shadow-2xl"
+        >
+          <div
+            data-parallax-speed="0.07"
+            className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-primary/20 blur-[100px]"
           />
+          <div
+            data-parallax-speed="-0.05"
+            className="pointer-events-none absolute -bottom-28 -right-20 h-80 w-80 rounded-full bg-primary/15 blur-[110px]"
+          />
+          <div className="relative overflow-hidden">
+            <img
+              data-parallax-speed="-0.08"
+              src={phonesDuo}
+              alt="Smartphones em destaque na Nara Cell"
+              width={1024}
+              height={1024}
+              loading="lazy"
+              className="h-[360px] w-full scale-[1.04] object-cover transition-transform duration-700 hover:scale-[1.09] sm:h-[460px]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-transparent to-black/25" />
+            <div
+              data-parallax-speed="0.05"
+              className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/60 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md sm:left-8 sm:top-8"
+            >
+              Nara Cell • Smartphones
+            </div>
+            <div
+              data-parallax-speed="-0.03"
+              className="absolute bottom-5 right-5 flex items-center gap-2 rounded-full border border-primary/40 bg-black/70 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md sm:bottom-8 sm:right-8"
+            >
+              <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
+              Role para explorar
+            </div>
+          </div>
         </div>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

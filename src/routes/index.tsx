@@ -231,35 +231,101 @@ function Index() {
 
         <div
           ref={phonesShowcaseRef}
-          className="reveal-right relative mt-12 min-h-[620px] overflow-hidden rounded-[2.5rem] border border-border bg-[#070707] shadow-2xl sm:min-h-[680px]"
+          className="reveal-right relative mt-12 min-h-[680px] overflow-hidden rounded-[2.5rem] border border-primary/20 bg-black shadow-2xl sm:min-h-[760px]"
+          style={{ perspective: "1400px" }}
         >
-          <div data-scene data-scene-x="-90" data-scene-y="80" data-scene-scale="0.08" className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-primary/25 blur-[110px] will-change-transform" />
-          <div data-scene data-scene-x="120" data-scene-y="-70" data-scene-scale="0.12" className="absolute -bottom-36 -right-32 h-[30rem] w-[30rem] rounded-full bg-primary/20 blur-[120px] will-change-transform" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_48%,rgba(239,24,38,0.26),transparent_34%),radial-gradient(circle_at_25%_20%,rgba(239,24,38,0.12),transparent_30%)]" />
+          <div data-scene data-scene-x="-80" data-scene-y="40" data-scene-scale="0.08" className="absolute -left-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-primary/25 blur-[120px] will-change-transform" />
+          <div data-scene data-scene-x="90" data-scene-y="-50" data-scene-scale="0.1" className="absolute -bottom-48 -right-40 h-[36rem] w-[36rem] rounded-full bg-primary/20 blur-[130px] will-change-transform" />
 
-          <div data-scene data-scene-x="70" data-scene-y="-30" data-scene-rotate="2" data-scene-scale="0.04" className="absolute inset-0 will-change-transform">
-            <img src={phonesDuo} alt="" aria-hidden="true" className="h-full w-full scale-[1.16] object-cover opacity-35 blur-[1px]" />
+          <div data-scene data-scene-x="60" data-scene-y="-20" data-scene-rotate="2" className="absolute inset-0 will-change-transform">
+            <img src={phonesDuo} alt="" aria-hidden="true" className="h-full w-full scale-[1.12] object-cover opacity-25 blur-[2px]" />
           </div>
 
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.35)_55%,rgba(0,0,0,0.9)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.94)_0%,rgba(0,0,0,0.78)_34%,rgba(0,0,0,0.18)_68%,rgba(0,0,0,0.55)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_55%,transparent_0%,rgba(0,0,0,0.15)_35%,rgba(0,0,0,0.78)_100%)]" />
 
-          <div data-scene data-scene-x="-130" data-scene-y="35" data-scene-rotate="-5" data-scene-scale="0.03" className="absolute left-1/2 top-1/2 w-[78%] -translate-x-1/2 -translate-y-1/2 will-change-transform sm:w-[62%]">
-            <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-black/50 p-2 shadow-[0_35px_100px_rgba(0,0,0,0.75)] backdrop-blur-sm sm:rounded-[2.5rem] sm:p-3">
-              <img src={phonesDuo} alt="Smartphones em destaque na Nara Cell" width={1024} height={1024} loading="lazy" className="h-[390px] w-full rounded-[1.5rem] object-cover sm:h-[470px] sm:rounded-[2rem]" />
+          <div className="relative z-20 grid h-full min-h-[680px] items-center gap-8 px-7 py-12 sm:min-h-[760px] sm:px-12 lg:grid-cols-[0.9fr_1.1fr] lg:px-16">
+            <div className="max-w-xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-primary">
+                <Smartphone className="h-4 w-4" />
+                Celulares e smartphones
+              </div>
+              <h2 className="mt-6 font-display text-4xl font-black leading-[0.98] tracking-tight text-white sm:text-6xl">
+                As melhores
+                <br />
+                marcas, em um
+                <br />
+                <span className="text-primary text-glow">só lugar!</span>
+              </h2>
+              <p className="mt-6 max-w-md text-base leading-7 text-white/70 sm:text-lg">
+                iPhone, Samsung, Xiaomi e muito mais. Consulte os aparelhos disponíveis na Nara Cell.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-2">
+                {["iPhone", "Samsung", "Xiaomi"].map((brand) => (
+                  <span key={brand} className="rounded-full border border-white/20 bg-black/30 px-4 py-2 text-xs font-bold uppercase tracking-wider text-white/85 backdrop-blur">
+                    {brand}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105">
+                  <MessageCircle className="h-4 w-4" />
+                  Consultar modelos
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+                <a href="#contato" className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/20 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:border-primary hover:text-primary">
+                  <MapPin className="h-4 w-4" />
+                  Visitar a loja
+                </a>
+              </div>
+            </div>
+
+            <div className="relative h-[430px] sm:h-[520px]">
+              <div className="absolute inset-0 grid place-items-center">
+                <div className="absolute h-[250px] w-[250px] rounded-full border border-primary/20 shadow-[0_0_80px_rgba(239,24,38,0.28)] sm:h-[340px] sm:w-[340px]" />
+                <div className="absolute h-[330px] w-[330px] rounded-full border border-primary/10 sm:h-[440px] sm:w-[440px]" />
+              </div>
+
+              <div
+                data-scene
+                data-scene-spin-y="360"
+                data-scene-rotate="-4"
+                data-scene-scale="0.05"
+                className="absolute left-1/2 top-1/2 w-[86%] -translate-x-1/2 -translate-y-1/2 will-change-transform"
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                <div className="overflow-hidden rounded-[2rem] border border-white/20 bg-black/50 p-2 shadow-[0_40px_120px_rgba(0,0,0,0.9)] backdrop-blur-sm sm:rounded-[2.5rem] sm:p-3">
+                  <img
+                    src={phonesDuo}
+                    alt="Smartphones em destaque na Nara Cell"
+                    width={1024}
+                    height={1024}
+                    loading="lazy"
+                    className="h-[350px] w-full rounded-[1.5rem] object-cover sm:h-[450px] sm:rounded-[2rem]"
+                  />
+                </div>
+              </div>
+
+              <div data-scene data-scene-x="120" data-scene-y="-80" data-scene-rotate="7" className="absolute right-0 top-8 z-10 rounded-2xl border border-white/15 bg-black/70 px-4 py-3 shadow-2xl backdrop-blur-xl sm:right-4 sm:top-14">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">360°</p>
+                <p className="mt-1 font-display text-lg font-bold text-white">Role para girar</p>
+              </div>
+
+              <div data-scene data-scene-x="-110" data-scene-y="80" data-scene-rotate="-6" className="absolute bottom-8 left-0 z-10 rounded-2xl border border-primary/30 bg-black/75 px-4 py-3 shadow-2xl backdrop-blur-xl sm:left-4 sm:bottom-14">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50">Experiência Nara Cell</p>
+                <p className="mt-1 flex items-center gap-2 font-semibold text-white">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
+                  Scroll = 360° de rotação
+                </p>
+              </div>
             </div>
           </div>
 
-          <div data-scene data-scene-x="170" data-scene-y="-85" data-scene-rotate="7" data-scene-scale="0.02" className="absolute right-5 top-20 z-10 rounded-2xl border border-white/15 bg-black/65 px-4 py-3 shadow-2xl backdrop-blur-xl sm:right-10 sm:top-24">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Nara Cell</p>
-            <p className="mt-1 font-display text-lg font-bold text-white">Smartphones</p>
-          </div>
-
-          <div data-scene data-scene-x="-180" data-scene-y="90" data-scene-rotate="-6" data-scene-scale="0.02" className="absolute bottom-20 left-5 z-10 rounded-2xl border border-primary/30 bg-black/70 px-4 py-3 shadow-2xl backdrop-blur-xl sm:bottom-24 sm:left-10">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Escolha seu aparelho</p>
-            <p className="mt-1 flex items-center gap-2 font-semibold text-white"><span className="h-2 w-2 animate-pulse rounded-full bg-primary" />Role para explorar</p>
-          </div>
-
-          <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-white/50">
-            <span className="h-8 w-px bg-primary/70" />Scroll<span className="h-8 w-px bg-primary/70" />
+          <div className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-white/45">
+            <span className="h-8 w-px bg-primary/70" />
+            Role para explorar
+            <span className="h-8 w-px bg-primary/70" />
           </div>
         </div>
 

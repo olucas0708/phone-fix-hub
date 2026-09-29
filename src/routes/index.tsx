@@ -14,7 +14,7 @@ import {
   Zap,
 } from "lucide-react";
 import { Header, WHATSAPP_URL } from "@/components/site/Header";
-import { useParallax, useScrollReveal } from "@/hooks/use-scroll";
+import { useParallax, useScrollReveal, useScrollScene } from "@/hooks/use-scroll";
 import heroPhone from "@/assets/hero-phone.jpg";
 import phonesDuo from "@/assets/phones-duo.jpg";
 import accessories from "@/assets/accessories.jpg";
@@ -90,7 +90,7 @@ const ACCESSORY_ITEMS = [
 function Index() {
   const revealRef = useScrollReveal<HTMLDivElement>();
   const parallaxRef = useParallax<HTMLDivElement>();
-  const phonesShowcaseRef = useParallax<HTMLDivElement>();
+  const phonesShowcaseRef = useScrollScene<HTMLDivElement>();
 
   return (
     <div ref={revealRef} className="min-h-screen bg-background text-foreground">
@@ -231,40 +231,35 @@ function Index() {
 
         <div
           ref={phonesShowcaseRef}
-          className="reveal-right relative mt-12 overflow-hidden rounded-[2rem] border border-border bg-black shadow-2xl"
+          className="reveal-right relative mt-12 min-h-[620px] overflow-hidden rounded-[2.5rem] border border-border bg-[#070707] shadow-2xl sm:min-h-[680px]"
         >
-          <div
-            data-parallax-speed="0.07"
-            className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-primary/20 blur-[100px]"
-          />
-          <div
-            data-parallax-speed="-0.05"
-            className="pointer-events-none absolute -bottom-28 -right-20 h-80 w-80 rounded-full bg-primary/15 blur-[110px]"
-          />
-          <div className="relative overflow-hidden">
-            <img
-              data-parallax-speed="-0.08"
-              src={phonesDuo}
-              alt="Smartphones em destaque na Nara Cell"
-              width={1024}
-              height={1024}
-              loading="lazy"
-              className="h-[360px] w-full scale-[1.04] object-cover transition-transform duration-700 hover:scale-[1.09] sm:h-[460px]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-transparent to-black/25" />
-            <div
-              data-parallax-speed="0.05"
-              className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/60 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md sm:left-8 sm:top-8"
-            >
-              Nara Cell • Smartphones
+          <div data-scene data-scene-x="-90" data-scene-y="80" data-scene-scale="0.08" className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-primary/25 blur-[110px] will-change-transform" />
+          <div data-scene data-scene-x="120" data-scene-y="-70" data-scene-scale="0.12" className="absolute -bottom-36 -right-32 h-[30rem] w-[30rem] rounded-full bg-primary/20 blur-[120px] will-change-transform" />
+
+          <div data-scene data-scene-x="70" data-scene-y="-30" data-scene-rotate="2" data-scene-scale="0.04" className="absolute inset-0 will-change-transform">
+            <img src={phonesDuo} alt="" aria-hidden="true" className="h-full w-full scale-[1.16] object-cover opacity-35 blur-[1px]" />
+          </div>
+
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.35)_55%,rgba(0,0,0,0.9)_100%)]" />
+
+          <div data-scene data-scene-x="-130" data-scene-y="35" data-scene-rotate="-5" data-scene-scale="0.03" className="absolute left-1/2 top-1/2 w-[78%] -translate-x-1/2 -translate-y-1/2 will-change-transform sm:w-[62%]">
+            <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-black/50 p-2 shadow-[0_35px_100px_rgba(0,0,0,0.75)] backdrop-blur-sm sm:rounded-[2.5rem] sm:p-3">
+              <img src={phonesDuo} alt="Smartphones em destaque na Nara Cell" width={1024} height={1024} loading="lazy" className="h-[390px] w-full rounded-[1.5rem] object-cover sm:h-[470px] sm:rounded-[2rem]" />
             </div>
-            <div
-              data-parallax-speed="-0.03"
-              className="absolute bottom-5 right-5 flex items-center gap-2 rounded-full border border-primary/40 bg-black/70 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md sm:bottom-8 sm:right-8"
-            >
-              <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
-              Role para explorar
-            </div>
+          </div>
+
+          <div data-scene data-scene-x="170" data-scene-y="-85" data-scene-rotate="7" data-scene-scale="0.02" className="absolute right-5 top-20 z-10 rounded-2xl border border-white/15 bg-black/65 px-4 py-3 shadow-2xl backdrop-blur-xl sm:right-10 sm:top-24">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Nara Cell</p>
+            <p className="mt-1 font-display text-lg font-bold text-white">Smartphones</p>
+          </div>
+
+          <div data-scene data-scene-x="-180" data-scene-y="90" data-scene-rotate="-6" data-scene-scale="0.02" className="absolute bottom-20 left-5 z-10 rounded-2xl border border-primary/30 bg-black/70 px-4 py-3 shadow-2xl backdrop-blur-xl sm:bottom-24 sm:left-10">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Escolha seu aparelho</p>
+            <p className="mt-1 flex items-center gap-2 font-semibold text-white"><span className="h-2 w-2 animate-pulse rounded-full bg-primary" />Role para explorar</p>
+          </div>
+
+          <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-white/50">
+            <span className="h-8 w-px bg-primary/70" />Scroll<span className="h-8 w-px bg-primary/70" />
           </div>
         </div>
 

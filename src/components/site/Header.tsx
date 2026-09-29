@@ -18,17 +18,68 @@ export const WHATSAPP_URL =
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [activeHref, setActiveHref] = useState("#inicio");
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
+    let ticking = false;
+
+    const updateScrollState = () => {
+      ticking = false;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100)) : 0;
+      setScrolled(window.scrollY > 24);
+      setScrollProgress(progress);
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(updateScrollState);
+      }
+    };
+
+    updateScrollState();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const sections = NAV_ITEMS.map((item) => document.querySelector<HTMLElement>(item.href)).filter(
+      (section): section is HTMLElement => Boolean(section),
+    );
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible) setActiveHref(`#${visible.target.id}`);
+      },
+      { rootMargin: "-20% 0px -55% 0px", threshold: [0.05, 0.2, 0.5, 0.8] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <header
-      className={cn(
+    <>
+      <div
+        aria-hidden="true"
+        className="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-primary transition-[transform] duration-100"
+        style={{ transform: `scaleX(${scrollProgress / 100})` }}
+      />
+      <header
+        className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled
           ? "border-b border-border bg-background/80 backdrop-blur-xl"
@@ -50,9 +101,15 @@ export function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className={cn(
+                "relative text-sm transition-colors hover:text-foreground",
+                activeHref === item.href ? "font-semibold text-foreground" : "text-muted-foreground",
+              )}
             >
               {item.label}
+              {activeHref === item.href && (
+                <span className="absolute -bottom-2 left-1/2 h-0.5 w-5 -translate-x-1/2 rounded-full bg-primary" />
+              )}
             </a>
           ))}
         </nav>
@@ -88,7 +145,10 @@ export function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className={cn(
+                "rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-secondary hover:text-foreground",
+                activeHref === item.href ? "bg-secondary font-semibold text-foreground" : "text-muted-foreground",
+              )}
             >
               {item.label}
             </a>
@@ -103,6 +163,7 @@ export function Header() {
           </a>
         </nav>
       </div>
-    </header>
+      </header>
+    </>
   );
 }

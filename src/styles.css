@@ -223,3 +223,16 @@
 .catalog-card a:hover {
   box-shadow: 0 12px 30px -14px color-mix(in oklab, var(--primary) 70%, transparent);
 }
+
+
+/* Accessible focus states: visible without changing the visual language. */
+:where(a, button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .catalog-card {
+    transform: none;
+  }
+}

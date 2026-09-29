@@ -1,0 +1,20 @@
+{
+  "name": "Nara Cell",
+  "short_name": "Nara Cell",
+  "description": "Celulares, acessórios e assistência técnica em Uberlândia.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1010",
+  "theme_color": "#0f1010",
+  "categories": ["shopping", "business"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon",
+      "purpose": "any"
+    }
+  ]
+}

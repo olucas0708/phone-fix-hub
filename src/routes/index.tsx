@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BatteryCharging,
@@ -112,6 +112,28 @@ function Index() {
   const [compare, setCompare] = useState(["iPhone", "Samsung"]);
   const [diagnosis, setDiagnosis] = useState("");
   const [repairPosition, setRepairPosition] = useState(52);
+  const [isRepairing, setIsRepairing] = useState(false);
+  const [repairStoryStep, setRepairStoryStep] = useState(0);
+  const repairStoryRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = repairStoryRef.current;
+    if (!section) return;
+
+    const updateStep = () => {
+      const rect = section.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, (window.innerHeight * 0.72 - rect.top) / Math.max(rect.height - window.innerHeight * 0.28, 1)));
+      setRepairStoryStep(Math.min(4, Math.floor(progress * 5)));
+    };
+
+    updateStep();
+    window.addEventListener("scroll", updateStep, { passive: true });
+    window.addEventListener("resize", updateStep);
+    return () => {
+      window.removeEventListener("scroll", updateStep);
+      window.removeEventListener("resize", updateStep);
+    };
+  }, []);
 
   const filteredPhones = useMemo(
     () =>
@@ -523,6 +545,48 @@ function Index() {
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ REPARO EM AÇÃO ============ */}
+      <section ref={repairStoryRef} className="relative overflow-hidden border-y border-border bg-black py-28">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_45%,rgba(239,24,38,0.2),transparent_38%)]" />
+        <div className="relative mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
+          <div className="lg:sticky lg:top-28 lg:h-fit">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Conserto em ação</p>
+            <h2 className="mt-3 font-display text-4xl font-black leading-tight text-white sm:text-6xl">Veja seu celular sendo cuidado.</h2>
+            <p className="mt-6 max-w-xl text-base leading-7 text-white/60">Uma jornada visual que mostra o processo de cuidado da Nara Cell, do problema ao aparelho pronto.</p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {["Diagnóstico", "Desmontagem", "Reparo", "Limpeza", "Pronto"].map((step, index) => (
+                <span key={step} className={`rounded-full border px-3 py-2 text-xs font-bold transition-all duration-500 ${repairStoryStep === index ? "border-primary bg-primary text-white shadow-[0_0_30px_rgba(239,24,38,0.25)]" : "border-white/10 bg-white/5 text-white/40"}`}>
+                  0{index + 1} {step}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative min-h-[650px] rounded-[2.5rem] border border-white/10 bg-white/[0.03] p-4 shadow-2xl sm:p-8">
+            <div className="relative h-[580px] overflow-hidden rounded-[2rem] border border-white/10 bg-neutral-950">
+              <img src={repair} alt="Assistência técnica Nara Cell" className="image-red-tone absolute inset-0 h-full w-full object-cover opacity-45 transition-transform duration-1000" style={{ transform: `scale(${1 + repairStoryStep * 0.025})` }} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40" />
+              <div className="absolute left-6 top-6 rounded-full border border-white/10 bg-black/60 px-4 py-2 text-xs font-bold uppercase tracking-widest text-white/70 backdrop-blur">
+                Nara Cell • Oficina
+              </div>
+              <div className="absolute inset-x-6 bottom-6 rounded-3xl border border-white/10 bg-black/65 p-6 backdrop-blur-xl">
+                <div className="flex items-end justify-between gap-5">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Etapa 0{repairStoryStep + 1}</p>
+                    <h3 className="mt-2 font-display text-2xl font-bold text-white">{["Diagnóstico preciso", "Desmontagem cuidadosa", "Reparo especializado", "Limpeza e testes", "Pronto para voltar"][repairStoryStep]}</h3>
+                    <p className="mt-2 text-sm leading-6 text-white/55">{["Entendemos o problema antes de mexer no aparelho.", "Cada componente é tratado com cuidado.", "A equipe trabalha diretamente na causa do problema.", "Tudo é revisado antes da entrega.", "Seu celular pronto para continuar a rotina."][repairStoryStep]}</p>
+                  </div>
+                  <div className="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl bg-primary text-white shadow-[0_0_40px_rgba(239,24,38,0.35)] sm:grid">
+                    {repairStoryStep === 0 ? <Search className="h-6 w-6" /> : repairStoryStep === 1 ? <Wrench className="h-6 w-6" /> : repairStoryStep === 2 ? <Zap className="h-6 w-6" /> : repairStoryStep === 3 ? <ShieldCheck className="h-6 w-6" /> : <Check className="h-6 w-6" />}
+                  </div>
+                </div>
+              </div>
+              <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/30 shadow-[0_0_100px_rgba(239,24,38,0.18)]" />
+            </div>
           </div>
         </div>
       </section>

@@ -96,8 +96,14 @@ export function useScrollScene<T extends HTMLElement>() {
         const x = Number(el.dataset.sceneX ?? 0);
         const y = Number(el.dataset.sceneY ?? 0);
         const rotate = Number(el.dataset.sceneRotate ?? 0);
+        const spinY = Number(el.dataset.sceneSpinY ?? 0);
+        const spinX = Number(el.dataset.sceneSpinX ?? 0);
         const scale = Number(el.dataset.sceneScale ?? 0);
-        el.style.transform = `translate3d(${centered * x}px, ${centered * y}px, 0) rotate(${centered * rotate}deg) scale(${1 + centered * scale})`;
+        const translate = `translate3d(${centered * x}px, ${centered * y}px, 0)`;
+        const rotation = `rotate(${centered * rotate}deg) rotateX(${progress * spinX}deg) rotateY(${progress * spinY}deg)`;
+        el.style.transform = `${translate} ${rotation} scale(${1 + centered * scale})`;
+        el.style.transformStyle = "preserve-3d";
+        el.style.backfaceVisibility = "visible";
       });
     };
 

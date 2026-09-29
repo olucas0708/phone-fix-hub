@@ -70,22 +70,6 @@ export function useParallax<T extends HTMLElement>() {
       if (!frame) frame = window.requestAnimationFrame(update);
     };
 
-    const onPointerMove = (event: PointerEvent) => {
-      if (!inViewport) return;
-      const rect = root.getBoundingClientRect();
-      mouseX = ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
-      mouseY = ((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2;
-      requestUpdate();
-    };
-
-    const onPointerLeave = () => {
-      mouseX = 0;
-      mouseY = 0;
-      requestUpdate();
-    };
-
-    root.addEventListener("pointermove", onPointerMove, { passive: true });
-    root.addEventListener("pointerleave", onPointerLeave);
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
     requestUpdate();
@@ -157,7 +141,23 @@ export function useScrollScene<T extends HTMLElement>() {
       { rootMargin: "30% 0px 30% 0px", threshold: 0 },
     );
 
+    const onPointerMove = (event: PointerEvent) => {
+      if (!inViewport) return;
+      const rect = root.getBoundingClientRect();
+      mouseX = ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
+      mouseY = ((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2;
+      requestUpdate();
+    };
+
+    const onPointerLeave = () => {
+      mouseX = 0;
+      mouseY = 0;
+      requestUpdate();
+    };
+
     visibilityObserver.observe(root);
+    root.addEventListener("pointermove", onPointerMove, { passive: true });
+    root.addEventListener("pointerleave", onPointerLeave);
 
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);

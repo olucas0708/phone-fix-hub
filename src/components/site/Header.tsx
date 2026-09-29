@@ -67,6 +67,7 @@ export function Header() {
   return (
     <>
       <div aria-hidden="true" className="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-primary transition-[transform] duration-100" style={{ transform: `scaleX(${scrollProgress / 100})` }} />
+      <a href="#conteudo" className="sr-only fixed left-4 top-4 z-[70] rounded-lg bg-primary px-4 py-2 text-sm font-bold text-primary-foreground focus:not-sr-only">Pular para o conteúdo</a>
       <header className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled ? "border-b border-border bg-background/80 backdrop-blur-xl" : "border-b border-transparent bg-transparent",
@@ -91,13 +92,13 @@ export function Header() {
 
           <div className="flex items-center gap-1 sm:gap-2">
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="ml-1 hidden rounded-full bg-primary px-5 py-2.5 text-xs font-bold text-primary-foreground shadow-[0_8px_30px_-12px_var(--primary)] transition-transform hover:scale-105 sm:inline-flex">WhatsApp</a>
-            <button aria-label="Abrir menu" onClick={() => setOpen((v) => !v)} className="grid h-9 w-9 place-items-center rounded-full text-foreground transition-colors hover:bg-secondary lg:hidden">
+            <button aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open} aria-controls="menu-mobile" onClick={() => setOpen((v) => !v)} className="grid h-9 w-9 place-items-center rounded-full text-foreground transition-colors hover:bg-secondary lg:hidden">
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
 
-        <div className={cn(
+        <div id="menu-mobile" className={cn(
           "overflow-hidden border-border bg-background/95 backdrop-blur-xl transition-all duration-300 lg:hidden",
           open ? "max-h-[32rem] border-b" : "max-h-0",
         )}>

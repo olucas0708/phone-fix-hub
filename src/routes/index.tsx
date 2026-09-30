@@ -5,7 +5,6 @@ import {
   BatteryCharging,
   BarChart3,
   CalendarCheck,
-  Camera,
   Cable,
   Check,
   ChevronDown,
@@ -760,7 +759,7 @@ function Index() {
           <div className="grid gap-4 sm:grid-cols-2">
             {[
               ["4,4 ★", "Nota registrada no Google"],
-              ["218+", "Avaliações registradas"],
+              ["Google", "Avaliações públicas"],
               ["WhatsApp", "Contato direto com a equipe"],
               ["Serviços", "Celulares, acessórios e reparos"],
             ].map(([title, text]) => (

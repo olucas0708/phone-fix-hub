@@ -3,8 +3,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   BatteryCharging,
+  BarChart3,
+  CalendarCheck,
+  Camera,
   Cable,
   Check,
+  ChevronDown,
   ChevronRight,
   CircleCheck,
   Clock3,
@@ -15,6 +19,8 @@ import {
   MessageCircle,
   Phone,
   Search,
+  Settings2,
+  PackageCheck,
   ShieldCheck,
   SlidersHorizontal,
   Smartphone,
@@ -113,6 +119,17 @@ function Index() {
   const [catalogSearch, setCatalogSearch] = useState("");
   const [compare, setCompare] = useState(["iPhone", "Samsung"]);
   const [diagnosis, setDiagnosis] = useState("");
+  const [repairBrand, setRepairBrand] = useState("Não informado");
+  const [repairModel, setRepairModel] = useState("");
+  const [recommendBudget, setRecommendBudget] = useState("Até R$ 2.000");
+  const [recommendPriority, setRecommendPriority] = useState("Equilíbrio");
+  const [recommendSystem, setRecommendSystem] = useState("Tanto faz");
+  const [adminOpen, setAdminOpen] = useState(false);
+  const [catalogStatus, setCatalogStatus] = useState<Record<string, string>>({
+    iPhone: "Consulte disponibilidade",
+    Samsung: "Consulte disponibilidade",
+    Xiaomi: "Consulte disponibilidade",
+  });
   const [leadIntent, setLeadIntent] = useState("comprar");
   const [leadBrand, setLeadBrand] = useState("Qualquer marca");
   const [leadBudget, setLeadBudget] = useState("Ainda não defini");
@@ -152,7 +169,7 @@ function Index() {
 
   const diagnosisLink = diagnosis
     ? createWhatsAppLink(
-        `Olá! Vim pelo site da Nara Cell. Meu celular está com o problema: ${diagnosis}. Quero saber sobre diagnóstico e orçamento.`,
+        `Olá! Vim pelo site da Nara Cell. Quero diagnóstico/orçamento. Problema: ${diagnosis}. Marca: ${repairBrand}. Modelo: ${repairModel || "não informado"}.`,
       )
     : WHATSAPP_URL;
 
@@ -160,11 +177,36 @@ function Index() {
     `Olá! Vim pelo site da Nara Cell. Quero atendimento sobre ${leadIntent}. Marca/interesse: ${leadBrand}. Faixa de investimento: ${leadBudget}. Preciso de: ${leadNeed}. Pode me orientar?`,
   );
 
+  const recommendationLink = createWhatsAppLink(
+    `Olá! Vim pelo site da Nara Cell. Quero ajuda para escolher um celular. Orçamento: ${recommendBudget}. Prioridade: ${recommendPriority}. Sistema: ${recommendSystem}.`,
+  );
+
   const toggleCompare = (name: string) => {
     setCompare((current) => {
       if (current.includes(name)) return current.filter((item) => item !== name);
       if (current.length >= 2) return [current[1], name];
       return [...current, name];
+    });
+  };
+
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem("nara-cell-catalog-status");
+      if (saved) setCatalogStatus(JSON.parse(saved));
+    } catch {
+      // Ignore unavailable or malformed local storage.
+    }
+  }, []);
+
+  const updateCatalogStatus = (brand: string, status: string) => {
+    setCatalogStatus((current) => {
+      const next = { ...current, [brand]: status };
+      try {
+        window.localStorage.setItem("nara-cell-catalog-status", JSON.stringify(next));
+      } catch {
+        // Keep the current UI working if storage is unavailable.
+      }
+      return next;
     });
   };
 
@@ -456,7 +498,7 @@ function Index() {
               <article key={phone.name} className="catalog-card reveal group overflow-hidden rounded-3xl border border-border bg-background transition-all duration-500 hover:-translate-y-2 hover:border-primary/50" style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}>
                 <div className="relative mb-6 h-48 overflow-hidden bg-black/40"><img src={phonesDuo} alt="" aria-hidden="true" className="image-red-tone h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" /><div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" /></div><div className="px-7 pb-7"><span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">{phone.tag}</span>
                 <h3 className="mt-4 font-display text-2xl font-bold">{phone.name}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{phone.type} • Consulte disponibilidade</p>
+                <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground"><PackageCheck className="h-4 w-4 text-primary" /> {phone.type} • {catalogStatus[phone.name]}</p>
                 <ul className="mt-5 flex flex-wrap gap-2">{phone.specs.map((spec) => <li key={spec} className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground">{spec}</li>)}</ul>
                 <a href={createWhatsAppLink(`Olá! Vim pelo site da Nara Cell e quero consultar celulares da marca ${phone.name}.`)} target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-transform hover:scale-105">Consultar {phone.name} <ArrowRight className="h-4 w-4" /></a></div>
               </article>
@@ -556,6 +598,57 @@ function Index() {
         </div>
       </section>
 
+      {/* ============ ESCOLHA INTELIGENTE ============ */}
+      <section id="escolher" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="reveal overflow-hidden rounded-[2.5rem] border border-primary/20 bg-card shadow-xl">
+          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+            <div className="bg-black p-7 sm:p-10">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+                <Sparkles className="h-3.5 w-3.5" /> Escolha guiada
+              </span>
+              <h2 className="mt-5 font-display text-3xl font-black text-white sm:text-4xl">Não sabe qual celular escolher?</h2>
+              <p className="mt-4 text-sm leading-6 text-white/55">Responda três perguntas e leve suas preferências prontas para a equipe. Os modelos e valores são confirmados pela loja.</p>
+              <div className="mt-8 grid gap-3">
+                {[["01","Orçamento"],["02","Prioridade"],["03","Sistema"]].map(([n,t]) => (
+                  <div key={n} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                    <span className="text-[10px] font-bold tracking-widest text-primary">{n}</span><span className="font-semibold text-white">{t}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="p-7 sm:p-10">
+              <div className="grid gap-5 sm:grid-cols-3">
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Orçamento</span>
+                  <select value={recommendBudget} onChange={(e) => setRecommendBudget(e.target.value)} className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-3 text-sm outline-none focus:border-primary">
+                    {["Até R$ 1.000","Até R$ 2.000","R$ 2.000 a R$ 4.000","Acima de R$ 4.000"].map((x) => <option key={x}>{x}</option>)}
+                  </select>
+                </label>
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Prioridade</span>
+                  <select value={recommendPriority} onChange={(e) => setRecommendPriority(e.target.value)} className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-3 text-sm outline-none focus:border-primary">
+                    {["Equilíbrio","Câmera","Bateria","Desempenho"].map((x) => <option key={x}>{x}</option>)}
+                  </select>
+                </label>
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Sistema</span>
+                  <select value={recommendSystem} onChange={(e) => setRecommendSystem(e.target.value)} className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-3 text-sm outline-none focus:border-primary">
+                    {["Tanto faz","iPhone / iOS","Android"].map((x) => <option key={x}>{x}</option>)}
+                  </select>
+                </label>
+              </div>
+              <div className="mt-7 rounded-2xl border border-border bg-background p-5">
+                <p className="text-sm font-semibold">Seu perfil</p>
+                <p className="mt-2 text-sm text-muted-foreground">{recommendSystem} • {recommendBudget} • foco em {recommendPriority.toLowerCase()}.</p>
+              </div>
+              <a href={recommendationLink} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105">
+                <MessageCircle className="h-4 w-4" /> Pedir opções à Nara Cell
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ============ DIAGNÓSTICO ============ */}
       <section id="diagnostico" className="relative overflow-hidden border-y border-border">
         <div className="absolute inset-0"><img src={repair} alt="" width={1024} height={1024} loading="lazy" className="h-full w-full object-cover opacity-20" /><div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" /></div>
@@ -573,6 +666,18 @@ function Index() {
                 {diagnosis === item.label && <CircleCheck className="ml-auto h-5 w-5 text-primary" />}
               </button>
             ))}
+          </div>
+          <div className="reveal mt-6 grid gap-4 sm:grid-cols-2">
+            <label className="block">
+              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Marca</span>
+              <select value={repairBrand} onChange={(e) => setRepairBrand(e.target.value)} className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-4 text-sm outline-none focus:border-primary">
+                {["Não informado","iPhone / Apple","Samsung","Xiaomi","Motorola","Outra marca"].map((x) => <option key={x}>{x}</option>)}
+              </select>
+            </label>
+            <label className="block">
+              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Modelo</span>
+              <input value={repairModel} onChange={(e) => setRepairModel(e.target.value)} placeholder="Ex.: iPhone 13, Galaxy S23..." className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-4 text-sm outline-none placeholder:text-muted-foreground focus:border-primary" />
+            </label>
           </div>
           <div className="reveal mt-8 rounded-3xl border border-primary/30 bg-card/90 p-6 backdrop-blur">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
@@ -649,13 +754,13 @@ function Index() {
           <div>
             <p className="text-sm font-semibold uppercase tracking-widest text-primary">Avaliações</p>
             <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">Confira a experiência de outros clientes</h2>
-            <p className="mt-5 text-muted-foreground">Em vez de inventar depoimentos no site, deixamos o cliente acessar as avaliações públicas da loja no Google.</p>
+            <p className="mt-5 text-muted-foreground">A loja tem avaliações públicas no Google. Consulte a página oficial para ver comentários e a nota atualizada antes de visitar.</p>
             <a href="https://www.google.com/search?q=Nara+Cell+Celulares+Uberlandia" target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"><Star className="h-4 w-4" /> Ver avaliações no Google</a>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {[
-              ["Google", "Avaliações públicas da loja"],
-              ["Loja física", "Atendimento presencial"],
+              ["4,4 ★", "Nota registrada no Google"],
+              ["218+", "Avaliações registradas"],
               ["WhatsApp", "Contato direto com a equipe"],
               ["Serviços", "Celulares, acessórios e reparos"],
             ].map(([title, text]) => (
@@ -716,7 +821,7 @@ function Index() {
           <div className="reveal grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
             <div className="flex flex-col justify-center">
               <span className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-primary"><MapPin className="h-3.5 w-3.5" /> Nossa loja</span>
-              <h2 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">Visite a <span className="text-primary">Nara Cell</span></h2>
+              <h2 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">Visite a <span className="text-primary">Nara Cell</span></h2><div className="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-2 text-xs font-semibold text-primary"><CalendarCheck className="h-4 w-4" /> Horários: seg–sex 08:30–19:00 • sáb 08:30–14:00</div>
               <p className="mt-5 text-muted-foreground">Estamos em Uberlândia, no bairro Presidente Roosevelt. Venha conhecer a loja, consultar aparelhos, acessórios ou deixar seu celular para avaliação.</p>
               <div className="mt-8 space-y-5">
                 <div className="flex gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary"><MapPin className="h-5 w-5" /></span><div><p className="font-semibold">Endereço</p><p className="mt-1 text-sm leading-6 text-muted-foreground">Av. João Bernardes de Souza, 505<br />Presidente Roosevelt • Uberlândia/MG<br />CEP 38401-016</p></div></div>
@@ -757,7 +862,33 @@ function Index() {
       {/* ============ FLOATING WHATSAPP ============ */}
       <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="Falar com a Nara Cell no WhatsApp" className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_15px_45px_-15px_var(--primary)] transition-transform hover:scale-110 sm:bottom-7 sm:right-7">
         <MessageCircle className="h-6 w-6" />
+        <span className="pointer-events-none absolute right-16 hidden whitespace-nowrap rounded-full border border-border bg-card px-3 py-2 text-xs font-semibold shadow-xl sm:block">Falar com a Nara Cell</span>
       </a>
+
+      {/* ============ PAINEL DE GESTÃO LOCAL ============ */}
+      <section className="border-t border-border bg-background">
+        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
+          <button type="button" onClick={() => setAdminOpen((v) => !v)} className="flex w-full items-center justify-between rounded-2xl border border-border bg-card px-5 py-4 text-left transition-colors hover:border-primary/40">
+            <span className="flex items-center gap-3"><Settings2 className="h-5 w-5 text-primary" /><span><span className="block font-display font-bold">Painel de gestão</span><span className="text-xs text-muted-foreground">Controle rápido do catálogo neste navegador</span></span></span>
+            <ChevronDown className={`h-5 w-5 transition-transform ${adminOpen ? "rotate-180" : ""}`} />
+          </button>
+          {adminOpen && (
+            <div className="mt-4 rounded-2xl border border-border bg-card p-5">
+              <div className="grid gap-4 md:grid-cols-3">
+                {PHONES.map((phone) => (
+                  <label key={phone.name} className="rounded-2xl border border-border bg-background p-4">
+                    <span className="flex items-center justify-between font-display font-bold"><span>{phone.name}</span><BarChart3 className="h-4 w-4 text-primary" /></span>
+                    <select value={catalogStatus[phone.name]} onChange={(e) => updateCatalogStatus(phone.name, e.target.value)} className="mt-3 h-11 w-full rounded-xl border border-input bg-card px-3 text-sm outline-none focus:border-primary">
+                      {["Consulte disponibilidade","Disponível para consulta","Destaque da semana","Sem disponibilidade no momento"].map((x) => <option key={x}>{x}</option>)}
+                    </select>
+                  </label>
+                ))}
+              </div>
+              <p className="mt-4 text-xs leading-5 text-muted-foreground">Este painel é uma camada local de gestão visual: as alterações ficam salvas no navegador atual. Para sincronizar estoque, preços e leads entre dispositivos, será necessário conectar um banco de dados e autenticação.</p>
+            </div>
+          )}
+        </div>
+      </section>
 
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-10 sm:flex-row sm:px-6 lg:px-8">

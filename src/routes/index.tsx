@@ -14,6 +14,8 @@ import {
   Filter,
   Headphones,
   Hand,
+  Instagram,
+  CreditCard,
   MapPin,
   MessageCircle,
   Phone,
@@ -889,13 +891,121 @@ function Index() {
         </div>
       </section>
 
-      <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-10 sm:flex-row sm:px-6 lg:px-8">
-          <a href="#inicio" className="flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground"><Smartphone className="h-4 w-4" /></span>
-            <span className="font-display font-bold">Nara<span className="text-primary">Cell</span></span>
-          </a>
-          <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Nara Cell. Todos os direitos reservados.</p>
+      <footer className="relative overflow-hidden border-t border-white/10 bg-black text-white">
+        <div className="pointer-events-none absolute -left-32 top-0 h-80 w-80 rounded-full bg-primary/10 blur-[110px]" />
+        <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-primary/10 blur-[130px]" />
+
+        <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-16 sm:px-6 sm:pt-20 lg:px-8">
+          <div className="reveal grid gap-12 lg:grid-cols-[1.25fr_0.75fr_0.9fr_1fr]">
+            <div className="max-w-sm">
+              <a href="#inicio" className="group inline-flex items-center gap-3" aria-label="Nara Cell — voltar ao início">
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-[0_12px_40px_-14px_var(--primary)] transition-transform duration-300 group-hover:scale-105">
+                  <Smartphone className="h-6 w-6" />
+                </span>
+                <span>
+                  <span className="block font-display text-2xl font-black tracking-tight">Nara<span className="text-primary">Cell</span></span>
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">Tecnologia • Reparos • Acessórios</span>
+                </span>
+              </a>
+              <p className="mt-6 text-sm leading-7 text-white/55">
+                Celulares, acessórios e assistência técnica com atendimento próximo em Uberlândia.
+              </p>
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground shadow-[0_12px_35px_-16px_var(--primary)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_45px_-16px_var(--primary)]">
+                <MessageCircle className="h-4 w-4" /> Fale com a Nara Cell
+              </a>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Links rápidos</p>
+              <nav className="mt-5 grid gap-3 text-sm text-white/55" aria-label="Links rápidos do rodapé">
+                {[
+                  ["Início", "#inicio"],
+                  ["Celulares", "#celulares"],
+                  ["Catálogo", "#catalogo"],
+                  ["Acessórios", "#acessorios"],
+                  ["Diagnóstico", "#diagnostico"],
+                  ["Sobre a Nara Cell", "#sobre"],
+                  ["Contato e localização", "#contato"],
+                ].map(([label, href]) => (
+                  <a key={href} href={href} className="w-fit transition-colors hover:text-white">{label}</a>
+                ))}
+              </nav>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Atendimento</p>
+              <div className="mt-5 space-y-4 text-sm">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-white/60 transition-colors hover:text-white">
+                  <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span><strong className="block text-white">WhatsApp</strong>(34) 99197-4536</span>
+                </a>
+                <a href="tel:+5534991974536" className="flex items-start gap-3 text-white/60 transition-colors hover:text-white">
+                  <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span><strong className="block text-white">Telefone</strong>(34) 99197-4536</span>
+                </a>
+                <div className="flex items-start gap-3 text-white/60">
+                  <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span><strong className="block text-white">Horário</strong>Seg–sex 08:30–19:00<br />Sáb 08:30–14:00</span>
+                </div>
+              </div>
+              <div className="mt-6 flex gap-2">
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram" className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-white/60 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/10 hover:text-primary">
+                  <Instagram className="h-4 w-4" />
+                </a>
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp" className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-white/60 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/10 hover:text-primary">
+                  <MessageCircle className="h-4 w-4" />
+                </a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Nara+Cell+Celulares%2C+Av.+Jo%C3%A3o+Bernardes+de+Souza%2C+505%2C+Uberl%C3%A2ndia%2C+MG" target="_blank" rel="noopener noreferrer" aria-label="Abrir localização no Google Maps" className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-white/60 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/10 hover:text-primary">
+                  <MapPin className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Onde estamos</p>
+              <a href="https://www.google.com/maps/search/?api=1&query=Nara+Cell+Celulares%2C+Av.+Jo%C3%A3o+Bernardes+de+Souza%2C+505%2C+Uberl%C3%A2ndia%2C+MG" target="_blank" rel="noopener noreferrer" className="mt-5 block text-sm leading-6 text-white/55 transition-colors hover:text-white">
+                <span className="flex items-start gap-3">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>Av. João Bernardes de Souza, 505<br />Presidente Roosevelt<br />Uberlândia/MG • 38401-016</span>
+                </span>
+              </a>
+              <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                <div className="flex items-start gap-3">
+                  <CreditCard className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <div>
+                    <p className="text-sm font-semibold text-white">Formas de pagamento</p>
+                    <p className="mt-1 text-xs leading-5 text-white/45">Pix, cartões e outras condições disponíveis. Consulte a equipe para confirmar as opções no atendimento.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="reveal mt-14 border-t border-white/10 pt-8">
+            <div className="grid gap-5 md:grid-cols-2">
+              <details id="politicas" className="group rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                <summary className="cursor-pointer list-none text-sm font-semibold text-white marker:hidden">
+                  <span className="flex items-center justify-between">Política de privacidade <ChevronDown className="h-4 w-4 text-white/40 transition-transform group-open:rotate-180" /></span>
+                </summary>
+                <p className="mt-3 text-xs leading-6 text-white/45">Este site usa as informações enviadas voluntariamente pelo cliente para facilitar o atendimento. Dados não são solicitados além do necessário para responder à sua solicitação.</p>
+              </details>
+              <details id="termos" className="group rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                <summary className="cursor-pointer list-none text-sm font-semibold text-white marker:hidden">
+                  <span className="flex items-center justify-between">Termos de uso <ChevronDown className="h-4 w-4 text-white/40 transition-transform group-open:rotate-180" /></span>
+                </summary>
+                <p className="mt-3 text-xs leading-6 text-white/45">As informações de disponibilidade, preços e condições podem ser confirmadas diretamente com a Nara Cell antes da compra ou contratação de um serviço.</p>
+              </details>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/35 sm:flex-row sm:items-center sm:justify-between">
+            <p>© {new Date().getFullYear()} Nara Cell. Todos os direitos reservados.</p>
+            <div className="flex flex-wrap gap-5">
+              <a href="#politicas" className="transition-colors hover:text-white">Privacidade</a>
+              <a href="#termos" className="transition-colors hover:text-white">Termos</a>
+              <a href="#inicio" className="inline-flex items-center gap-1 transition-colors hover:text-white">Voltar ao topo <ArrowRight className="h-3 w-3 -rotate-90" /></a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

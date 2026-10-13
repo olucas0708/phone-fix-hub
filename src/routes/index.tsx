@@ -185,7 +185,7 @@ function Index() {
   const toggleCompare = (name: string) => {
     setCompare((current) => {
       if (current.includes(name)) return current.filter((item) => item !== name);
-      if (current.length >= 2) return [current[1], name];
+      if (current.length >= 2) return [current[1] ?? "", name];
       return [...current, name];
     });
   };
@@ -345,7 +345,7 @@ function Index() {
                     ["comprar acessórios", "Acessórios"],
                     ["fazer um reparo", "Reparo"],
                   ].map(([value, label]) => (
-                    <button key={value} type="button" onClick={() => setLeadIntent(value)} aria-pressed={leadIntent === value}
+                    <button key={value} type="button" onClick={() => setLeadIntent(value ?? "")} aria-pressed={leadIntent === value}
                       className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition-all ${leadIntent === value ? "border-primary bg-primary/10 text-primary" : "border-border bg-background text-muted-foreground hover:border-primary/40"}`}>
                       {label}
                     </button>

@@ -34,6 +34,8 @@
   --color-ring-offset-background: var(--background);
   --color-graphite: var(--graphite);
   --color-graphite-light: var(--graphite-light);
+  --color-electric: var(--electric);
+  --color-hero: var(--hero);
 }
 
 @theme {
@@ -64,6 +66,8 @@
   --ring: oklch(0.65 0.23 25);
   --graphite: oklch(0.2 0.008 140);
   --graphite-light: oklch(0.28 0.01 140);
+  --electric: oklch(0.68 0.19 250);
+  --hero: oklch(0.12 0.03 255);
 }
 
 @layer base {

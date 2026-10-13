@@ -31,7 +31,8 @@ import {
   Zap,
 } from "lucide-react";
 import { Header, WHATSAPP_URL } from "@/components/site/Header";
-import { useParallax, useScrollReveal, useScrollScene } from "@/hooks/use-scroll";
+import { ScrollVideoHero } from "@/components/site/ScrollVideoHero";
+import { useScrollReveal, useScrollScene } from "@/hooks/use-scroll";
 import heroPhone from "@/assets/hero-phone.jpg";
 import phonesDuo from "@/assets/phones-duo.jpg";
 import accessories from "@/assets/accessories.jpg";
@@ -114,7 +115,6 @@ const createWhatsAppLink = (message: string) =>
 
 function Index() {
   const revealRef = useScrollReveal<HTMLDivElement>();
-  const parallaxRef = useParallax<HTMLDivElement>();
   const phonesShowcaseRef = useScrollScene<HTMLDivElement>();
   const [catalogFilter, setCatalogFilter] = useState("Todos");
   const [catalogSearch, setCatalogSearch] = useState("");
@@ -185,7 +185,7 @@ function Index() {
   const toggleCompare = (name: string) => {
     setCompare((current) => {
       if (current.includes(name)) return current.filter((item) => item !== name);
-      if (current.length >= 2) return [current[1], name];
+      if (current.length >= 2) return [current[1] ?? "", name];
       return [...current, name];
     });
   };
@@ -216,28 +216,24 @@ function Index() {
       <Header />
 
       {/* ============ HERO ============ */}
-      <section id="inicio" ref={parallaxRef} className="relative flex min-h-screen items-center overflow-hidden">
-        <div data-parallax-speed="0.15" className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/10 blur-[110px]" />
-        <div data-parallax-speed="0.3" className="pointer-events-none absolute right-[-120px] top-1/3 h-[400px] w-[400px] rounded-full bg-primary/5 blur-[100px]" />
+      <ScrollVideoHero>
 
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-4 pb-24 pt-32 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div>
             <p className="reveal inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-medium tracking-wide text-muted-foreground">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
               Loja + Assistência técnica especializada
             </p>
-            <h1 className="reveal mt-6 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl" style={{ "--reveal-delay": "100ms" } as React.CSSProperties}>
+            <h1 className="reveal mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl" style={{ "--reveal-delay": "100ms" } as React.CSSProperties}>
               SEU PRÓXIMO
               <br />
               SMARTPHONE
               <br />
               <span className="text-primary text-glow">COMEÇA AQUI.</span>
             </h1>
-            <p className="reveal mt-6 max-w-md text-lg text-muted-foreground" style={{ "--reveal-delay": "200ms" } as React.CSSProperties}>
+            <p className="reveal mt-4 max-w-md text-base sm:text-lg text-muted-foreground" style={{ "--reveal-delay": "200ms" } as React.CSSProperties}>
               Compra e venda de celulares, acessórios e assistência técnica em um só lugar.
               Atendimento presencial e pelo WhatsApp.
             </p>
-            <div className="reveal mt-10 flex flex-wrap items-center gap-4" style={{ "--reveal-delay": "300ms" } as React.CSSProperties}>
+            <div className="reveal mt-6 lg:mt-10 flex flex-wrap items-center gap-4" style={{ "--reveal-delay": "300ms" } as React.CSSProperties}>
               <a href="#celulares" className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105">
                 Ver celulares <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
@@ -246,7 +242,7 @@ function Index() {
               </a>
             </div>
 
-            <div className="reveal mt-10 grid max-w-xl grid-cols-3 gap-3" style={{ "--reveal-delay": "400ms" } as React.CSSProperties}>
+            <div className="reveal mt-10 hidden lg:grid max-w-xl grid-cols-3 gap-3" style={{ "--reveal-delay": "400ms" } as React.CSSProperties}>
               {[
                 ["Celulares", "Compra e venda"],
                 ["Assistência", "Reparos"],
@@ -258,21 +254,7 @@ function Index() {
                 </a>
               ))}
             </div>
-          </div>
-
-          <div className="relative" data-parallax-speed="-0.08">
-            <div className="animate-float-slow relative mx-auto max-w-sm">
-              <div className="glow-accent absolute inset-0 rounded-[3rem]" />
-              <img src={heroPhone} alt="Smartphone em destaque na Nara Cell" width={1024} height={1280} fetchPriority="high" decoding="async" className="image-red-tone relative rounded-[2rem] border border-border object-cover" />
-            </div>
-            <div data-parallax-speed="-0.12" className="absolute -right-2 bottom-24 hidden rounded-2xl border border-border bg-card/90 px-4 py-3 backdrop-blur-md sm:block">
-              <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Atendimento Nara Cell
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      </ScrollVideoHero>
 
       {/* ============ MARQUEE ============ */}
       <div className="overflow-hidden border-y border-border bg-card py-4">
@@ -363,7 +345,7 @@ function Index() {
                     ["comprar acessórios", "Acessórios"],
                     ["fazer um reparo", "Reparo"],
                   ].map(([value, label]) => (
-                    <button key={value} type="button" onClick={() => setLeadIntent(value)} aria-pressed={leadIntent === value}
+                    <button key={value} type="button" onClick={() => setLeadIntent(value ?? "")} aria-pressed={leadIntent === value}
                       className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition-all ${leadIntent === value ? "border-primary bg-primary/10 text-primary" : "border-border bg-background text-muted-foreground hover:border-primary/40"}`}>
                       {label}
                     </button>

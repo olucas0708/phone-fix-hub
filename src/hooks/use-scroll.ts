@@ -59,7 +59,7 @@ export function useParallax<T extends HTMLElement>() {
 
       const scrollY = window.scrollY;
       for (const el of items) {
-        const speed = Number(el.dataset.parallaxSpeed ?? 0);
+        const speed = Number(el.dataset["parallaxSpeed"] ?? 0);
         if (Number.isFinite(speed)) {
           el.style.transform = `translate3d(0, ${scrollY * speed}px, 0)`;
         }
@@ -111,13 +111,13 @@ export function useScrollScene<T extends HTMLElement>() {
       const centered = progress * 2 - 1;
 
       for (const el of items) {
-        const x = Number(el.dataset.sceneX ?? 0);
-        const y = Number(el.dataset.sceneY ?? 0);
-        const rotate = Number(el.dataset.sceneRotate ?? 0);
-        const spinY = Number(el.dataset.sceneSpinY ?? 0);
-        const spinX = Number(el.dataset.sceneSpinX ?? 0);
-        const scale = Number(el.dataset.sceneScale ?? 0);
-        const mouseDepth = Number(el.dataset.sceneMouse ?? 0);
+        const x = Number(el.dataset["sceneX"] ?? 0);
+        const y = Number(el.dataset["sceneY"] ?? 0);
+        const rotate = Number(el.dataset["sceneRotate"] ?? 0);
+        const spinY = Number(el.dataset["sceneSpinY"] ?? 0);
+        const spinX = Number(el.dataset["sceneSpinX"] ?? 0);
+        const scale = Number(el.dataset["sceneScale"] ?? 0);
+        const mouseDepth = Number(el.dataset["sceneMouse"] ?? 0);
         const mouseTranslateX = mouseX * mouseDepth;
         const mouseTranslateY = mouseY * mouseDepth;
 

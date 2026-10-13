@@ -445,95 +445,6 @@ function Index() {
         </div>
       </section>
 
-      {/* ============ CATÁLOGO ============ */}
-      <section id="catalogo" className="border-y border-border bg-card">
-        <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-          <div className="reveal flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-widest text-primary">Catálogo guiado</p>
-              <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">Escolha uma marca</h2>
-              <p className="mt-4 max-w-2xl text-muted-foreground">Filtre por marca e fale diretamente com a Nara Cell para confirmar modelos, estoque e condições.</p>
-            </div>
-            <div className="flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold text-muted-foreground"><Filter className="h-4 w-4 text-primary" /> Filtro rápido</div>
-          </div>
-          <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_auto]">
-            <label className="relative block">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <span className="sr-only">Buscar no catálogo</span>
-              <input
-                value={catalogSearch}
-                onChange={(event) => setCatalogSearch(event.target.value)}
-                placeholder="Buscar marca, linha ou categoria..."
-                className="h-12 w-full rounded-2xl border border-input bg-background pl-11 pr-4 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
-                type="search"
-              />
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {["Todos", ...PHONES.map((phone) => phone.name)].map((filter) => (
-                <button key={filter} type="button" onClick={() => setCatalogFilter(filter)} className={`rounded-full border px-5 py-2.5 text-sm font-semibold transition-all ${catalogFilter === filter ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary/40"}`}>
-                  {filter}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {filteredPhones.length > 0 ? filteredPhones.map((phone, i) => (
-              <article key={phone.name} className="catalog-card reveal group overflow-hidden rounded-3xl border border-border bg-background transition-all duration-500 hover:-translate-y-2 hover:border-primary/50" style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}>
-                <div className="relative mb-6 h-48 overflow-hidden bg-black/40"><img src={phonesDuo} alt="" aria-hidden="true" className="image-red-tone h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" /><div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" /></div><div className="px-7 pb-7"><span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">{phone.tag}</span>
-                <h3 className="mt-4 font-display text-2xl font-bold">{phone.name}</h3>
-                <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground"><PackageCheck className="h-4 w-4 text-primary" /> {phone.type} • {catalogStatus[phone.name]}</p>
-                <ul className="mt-5 flex flex-wrap gap-2">{phone.specs.map((spec) => <li key={spec} className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground">{spec}</li>)}</ul>
-                <a href={createWhatsAppLink(`Olá! Vim pelo site da Nara Cell e quero consultar celulares da marca ${phone.name}.`)} target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-transform hover:scale-105">Consultar {phone.name} <ArrowRight className="h-4 w-4" /></a></div>
-              </article>
-            )) : (
-              <div className="md:col-span-3 rounded-3xl border border-dashed border-border bg-background p-10 text-center">
-                <Search className="mx-auto h-8 w-8 text-primary" />
-                <p className="mt-4 font-display text-lg font-bold">Não encontramos essa opção.</p>
-                <p className="mt-2 text-sm text-muted-foreground">Tente outra busca ou fale com a Nara Cell para consultar disponibilidade.</p>
-                <a href={createWhatsAppLink(`Olá! Vim pelo site da Nara Cell. Quero consultar um celular que não apareceu no catálogo: ${catalogSearch || "não informado"}.`)} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground">
-                  <MessageCircle className="h-4 w-4" /> Consultar no WhatsApp
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* ============ COMPARADOR ============ */}
-      <section id="comparador" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="reveal max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Comparador</p>
-          <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">Compare o que você procura</h2>
-          <p className="mt-4 text-muted-foreground">Selecione até duas categorias para organizar sua conversa com a equipe. Os detalhes e modelos exatos são confirmados pela loja.</p>
-        </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
-          {PHONES.map((phone) => (
-            <button key={phone.name} onClick={() => toggleCompare(phone.name)} className={`rounded-2xl border p-5 text-left transition-all ${compare.includes(phone.name) ? "border-primary bg-primary/10" : "border-border bg-card hover:border-primary/40"}`}>
-              <div className="flex items-center justify-between"><span className="font-display font-bold">{phone.name}</span><span className={`grid h-6 w-6 place-items-center rounded-full border ${compare.includes(phone.name) ? "border-primary bg-primary text-primary-foreground" : "border-border"}`}>{compare.includes(phone.name) && <Check className="h-4 w-4" />}</span></div>
-              <p className="mt-2 text-xs text-muted-foreground">{phone.tag} • {phone.type}</p>
-            </button>
-          ))}
-        </div>
-        <div className="mt-8 overflow-hidden rounded-3xl border border-border bg-card">
-          <div className="grid grid-cols-[1fr_repeat(2,minmax(0,1fr))] border-b border-border bg-background p-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-            <span>Critério</span>{compare.map((name) => <span key={name} className="text-primary">{name}</span>)}{compare.length < 2 && <span>Selecione outra marca</span>}
-          </div>
-          {[
-            ["Linha", compare.map((name) => name === "iPhone" ? "Apple" : name === "Samsung" ? "Galaxy" : "Smartphones")],
-            ["Disponibilidade", compare.map(() => "Consultar loja")],
-            ["Novos", compare.map(() => "Consulte")],
-            ["Seminovos", compare.map(() => "Consulte")],
-            ["Acessórios", compare.map(() => "Consulte")],
-          ].map(([label, values]) => (
-            <div key={label as string} className="grid grid-cols-[1fr_repeat(2,minmax(0,1fr))] border-b border-border p-4 text-sm last:border-b-0">
-              <span className="font-semibold">{label as string}</span>
-              {(values as string[]).map((value, i) => <span key={`${value}-${i}`} className="text-muted-foreground">{value}</span>)}
-              {(values as string[]).length < 2 && <span className="text-muted-foreground">—</span>}
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ============ OFERTAS ============ */}
       <section id="ofertas" className="border-y border-border bg-card">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:px-8">
@@ -581,57 +492,6 @@ function Index() {
         </div>
       </section>
 
-      {/* ============ ESCOLHA INTELIGENTE ============ */}
-      <section id="escolher" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="reveal overflow-hidden rounded-[2.5rem] border border-primary/20 bg-card shadow-xl">
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-            <div className="bg-black p-7 sm:p-10">
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-                <Sparkles className="h-3.5 w-3.5" /> Escolha guiada
-              </span>
-              <h2 className="mt-5 font-display text-3xl font-black text-white sm:text-4xl">Não sabe qual celular escolher?</h2>
-              <p className="mt-4 text-sm leading-6 text-white/55">Responda três perguntas e leve suas preferências prontas para a equipe. Os modelos e valores são confirmados pela loja.</p>
-              <div className="mt-8 grid gap-3">
-                {[["01","Orçamento"],["02","Prioridade"],["03","Sistema"]].map(([n,t]) => (
-                  <div key={n} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                    <span className="text-[10px] font-bold tracking-widest text-primary">{n}</span><span className="font-semibold text-white">{t}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="p-7 sm:p-10">
-              <div className="grid gap-5 sm:grid-cols-3">
-                <label className="block">
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Orçamento</span>
-                  <select value={recommendBudget} onChange={(e) => setRecommendBudget(e.target.value)} className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-3 text-sm outline-none focus:border-primary">
-                    {["Até R$ 1.000","Até R$ 2.000","R$ 2.000 a R$ 4.000","Acima de R$ 4.000"].map((x) => <option key={x}>{x}</option>)}
-                  </select>
-                </label>
-                <label className="block">
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Prioridade</span>
-                  <select value={recommendPriority} onChange={(e) => setRecommendPriority(e.target.value)} className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-3 text-sm outline-none focus:border-primary">
-                    {["Equilíbrio","Câmera","Bateria","Desempenho"].map((x) => <option key={x}>{x}</option>)}
-                  </select>
-                </label>
-                <label className="block">
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Sistema</span>
-                  <select value={recommendSystem} onChange={(e) => setRecommendSystem(e.target.value)} className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-3 text-sm outline-none focus:border-primary">
-                    {["Tanto faz","iPhone / iOS","Android"].map((x) => <option key={x}>{x}</option>)}
-                  </select>
-                </label>
-              </div>
-              <div className="mt-7 rounded-2xl border border-border bg-background p-5">
-                <p className="text-sm font-semibold">Seu perfil</p>
-                <p className="mt-2 text-sm text-muted-foreground">{recommendSystem} • {recommendBudget} • foco em {recommendPriority.toLowerCase()}.</p>
-              </div>
-              <a href={recommendationLink} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105">
-                <MessageCircle className="h-4 w-4" /> Pedir opções à Nara Cell
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ============ DIAGNÓSTICO ============ */}
       <section id="diagnostico" className="relative overflow-hidden border-y border-border">
         <div className="absolute inset-0"><img src={repair} alt="" width={1024} height={1024} loading="lazy" className="h-full w-full object-cover opacity-20" /><div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" /></div>
@@ -666,41 +526,6 @@ function Index() {
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div><p className="text-xs font-bold uppercase tracking-widest text-primary">Seu próximo passo</p><p className="mt-2 font-display text-xl font-bold">{diagnosis || "Selecione um problema acima"}</p><p className="mt-1 text-sm text-muted-foreground">A Nara Cell confirma o diagnóstico e o orçamento antes do reparo.</p></div>
               <a href={diagnosisLink} target="_blank" rel="noopener noreferrer" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105"><MessageCircle className="h-4 w-4" /> {diagnosis ? "Enviar para a Nara Cell" : "Falar com a equipe"}</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ ANTES / DEPOIS ============ */}
-      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="reveal grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-widest text-primary">Experiência visual</p>
-            <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">Veja a diferença do cuidado</h2>
-            <p className="mt-5 text-muted-foreground">Arraste o controle para explorar uma composição visual de reparo. Para resultados e fotos reais de serviços específicos, consulte a equipe Nara Cell.</p>
-            <a href={createWhatsAppLink("Olá! Vim pelo site da Nara Cell e quero ver exemplos de reparos e serviços realizados.")} target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 text-sm font-semibold transition-colors hover:border-primary hover:text-primary"><MessageCircle className="h-4 w-4" /> Ver serviços reais</a>
-          </div>
-          <div className="overflow-hidden rounded-[2rem] border border-border bg-black p-2 shadow-2xl">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem]">
-              <img src={repair} alt="Assistência técnica Nara Cell" className="image-red-tone absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - repairPosition}% 0 0)` }}>
-                <img src={repair} alt="" aria-hidden="true" className="comparison-grayscale h-full w-full object-cover" />
-              </div>
-              <div className="pointer-events-none absolute inset-y-0" style={{ left: `${repairPosition}%` }}><div className="h-full w-px bg-white shadow-[0_0_18px_rgba(255,255,255,0.8)]" /></div>
-              <div
-                className={`pointer-events-none absolute z-20 transition-[left,transform] duration-150 ${isRepairing ? "repair-hand-active" : "repair-hand-idle"}`}
-                style={{ left: `clamp(10%, ${repairPosition}%, 90%)`, top: "58%", transform: "translate(-50%, -50%)" }}
-                aria-hidden="true"
-              >
-                <div className="relative">
-                  <div className="absolute -inset-5 rounded-full bg-primary/20 blur-xl" />
-                  <Hand className="relative h-12 w-12 rotate-[-18deg] fill-white stroke-black drop-shadow-[0_6px_8px_rgba(0,0,0,0.45)]" />
-                  <Wrench className="repair-tool absolute -right-5 -bottom-3 h-7 w-7 rotate-[-25deg] rounded-full bg-primary p-1 text-primary-foreground shadow-lg" />
-                </div>
-              </div>
-              <span className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white">Cuidado</span>
-              <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary-foreground">Detalhe</span>
-              <input aria-label="Comparar imagem" type="range" min="5" max="95" value={repairPosition} onPointerDown={() => setIsRepairing(true)} onPointerUp={() => setIsRepairing(false)} onPointerCancel={() => setIsRepairing(false)} onChange={(event) => setRepairPosition(Number(event.target.value))} className="absolute inset-x-5 bottom-5 w-[calc(100%-2.5rem)] accent-[var(--primary)]" />
             </div>
           </div>
         </div>
@@ -756,48 +581,6 @@ function Index() {
         </div>
       </section>
 
-      {/* ============ REPARO EM AÇÃO ============ */}
-      <section ref={repairStoryRef} className="relative overflow-hidden border-y border-border bg-black py-28">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_45%,rgba(239,24,38,0.2),transparent_38%)]" />
-        <div className="relative mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
-          <div className="lg:sticky lg:top-28 lg:h-fit">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Conserto em ação</p>
-            <h2 className="mt-3 font-display text-4xl font-black leading-tight text-white sm:text-6xl">Veja seu celular sendo cuidado.</h2>
-            <p className="mt-6 max-w-xl text-base leading-7 text-white/60">Uma jornada visual que mostra o processo de cuidado da Nara Cell, do problema ao aparelho pronto.</p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {["Diagnóstico", "Desmontagem", "Reparo", "Limpeza", "Pronto"].map((step, index) => (
-                <span key={step} className={`rounded-full border px-3 py-2 text-xs font-bold transition-all duration-500 ${repairStoryStep === index ? "border-primary bg-primary text-white shadow-[0_0_30px_rgba(239,24,38,0.25)]" : "border-white/10 bg-white/5 text-white/40"}`}>
-                  0{index + 1} {step}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative min-h-[650px] rounded-[2.5rem] border border-white/10 bg-white/[0.03] p-4 shadow-2xl sm:p-8">
-            <div className="relative h-[580px] overflow-hidden rounded-[2rem] border border-white/10 bg-neutral-950">
-              <img src={repairStoryStep === 4 ? heroPhone : repair} alt={repairStoryStep === 4 ? "Smartphone pronto na Nara Cell" : "Assistência técnica Nara Cell"} className="image-red-tone absolute inset-0 h-full w-full object-cover opacity-45 transition-transform duration-1000" style={{ transform: `scale(${1 + repairStoryStep * 0.025})` }} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40" />
-              <div className="absolute left-6 top-6 rounded-full border border-white/10 bg-black/60 px-4 py-2 text-xs font-bold uppercase tracking-widest text-white/70 backdrop-blur">
-                Nara Cell • Oficina
-              </div>
-              <div className="absolute inset-x-6 bottom-6 rounded-3xl border border-white/10 bg-black/65 p-6 backdrop-blur-xl">
-                <div className="flex items-end justify-between gap-5">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Etapa 0{repairStoryStep + 1}</p>
-                    <h3 className="mt-2 font-display text-2xl font-bold text-white">{["Diagnóstico preciso", "Desmontagem cuidadosa", "Reparo especializado", "Limpeza e testes", "Pronto para voltar"][repairStoryStep]}</h3>
-                    <p className="mt-2 text-sm leading-6 text-white/55">{["Entendemos o problema antes de mexer no aparelho.", "Cada componente é tratado com cuidado.", "A equipe trabalha diretamente na causa do problema.", "Tudo é revisado antes da entrega.", "Seu celular pronto para continuar a rotina."][repairStoryStep]}</p>
-                  </div>
-                  <div className="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl bg-primary text-white shadow-[0_0_40px_rgba(239,24,38,0.35)] sm:grid">
-                    {repairStoryStep === 0 ? <Search className="h-6 w-6" /> : repairStoryStep === 1 ? <Wrench className="h-6 w-6" /> : repairStoryStep === 2 ? <Zap className="h-6 w-6" /> : repairStoryStep === 3 ? <ShieldCheck className="h-6 w-6" /> : <Check className="h-6 w-6" />}
-                  </div>
-                </div>
-              </div>
-              <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/30 shadow-[0_0_100px_rgba(239,24,38,0.18)]" />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ============ CONTATO / LOCALIZAÇÃO ============ */}
       <section id="contato" className="border-t border-border bg-card">
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
@@ -847,31 +630,6 @@ function Index() {
         <MessageCircle className="h-6 w-6" />
         <span className="pointer-events-none absolute right-16 hidden whitespace-nowrap rounded-full border border-border bg-card px-3 py-2 text-xs font-semibold shadow-xl sm:block">Falar com a Nara Cell</span>
       </a>
-
-      {/* ============ PAINEL DE GESTÃO LOCAL ============ */}
-      <section className="border-t border-border bg-background">
-        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
-          <button type="button" onClick={() => setAdminOpen((v) => !v)} className="flex w-full items-center justify-between rounded-2xl border border-border bg-card px-5 py-4 text-left transition-colors hover:border-primary/40">
-            <span className="flex items-center gap-3"><Settings2 className="h-5 w-5 text-primary" /><span><span className="block font-display font-bold">Painel de gestão</span><span className="text-xs text-muted-foreground">Controle rápido do catálogo neste navegador</span></span></span>
-            <ChevronDown className={`h-5 w-5 transition-transform ${adminOpen ? "rotate-180" : ""}`} />
-          </button>
-          {adminOpen && (
-            <div className="mt-4 rounded-2xl border border-border bg-card p-5">
-              <div className="grid gap-4 md:grid-cols-3">
-                {PHONES.map((phone) => (
-                  <label key={phone.name} className="rounded-2xl border border-border bg-background p-4">
-                    <span className="flex items-center justify-between font-display font-bold"><span>{phone.name}</span><BarChart3 className="h-4 w-4 text-primary" /></span>
-                    <select value={catalogStatus[phone.name]} onChange={(e) => updateCatalogStatus(phone.name, e.target.value)} className="mt-3 h-11 w-full rounded-xl border border-input bg-card px-3 text-sm outline-none focus:border-primary">
-                      {["Consulte disponibilidade","Disponível para consulta","Destaque da semana","Sem disponibilidade no momento"].map((x) => <option key={x}>{x}</option>)}
-                    </select>
-                  </label>
-                ))}
-              </div>
-              <p className="mt-4 text-xs leading-5 text-muted-foreground">Este painel é uma camada local de gestão visual: as alterações ficam salvas no navegador atual. Para sincronizar estoque, preços e leads entre dispositivos, será necessário conectar um banco de dados e autenticação.</p>
-            </div>
-          )}
-        </div>
-      </section>
 
       <footer className="relative overflow-hidden border-t border-white/10 bg-black text-white">
         <div className="pointer-events-none absolute -left-32 top-0 h-80 w-80 rounded-full bg-primary/10 blur-[110px]" />

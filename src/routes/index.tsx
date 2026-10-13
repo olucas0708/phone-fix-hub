@@ -32,7 +32,7 @@ import {
 } from "lucide-react";
 import { Header, WHATSAPP_URL } from "@/components/site/Header";
 import { ScrollVideoHero } from "@/components/site/ScrollVideoHero";
-import { useParallax, useScrollReveal, useScrollScene } from "@/hooks/use-scroll";
+import { useScrollReveal, useScrollScene } from "@/hooks/use-scroll";
 import heroPhone from "@/assets/hero-phone.jpg";
 import phonesDuo from "@/assets/phones-duo.jpg";
 import accessories from "@/assets/accessories.jpg";

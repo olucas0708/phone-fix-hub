@@ -78,8 +78,8 @@ export function ScrollVideoHero({ children }: { children: ReactNode }) {
     };
 
     const onSeeked = () => {
-      // Mobile waits for each seek to finish before scheduling the next one.
-      if (touchLayout.matches || reducedMotion.matches) return;
+      // Re-check the latest scroll target after decoding the requested frame.
+      // This also handles scroll input received while a mobile seek was active.
       requestTick();
     };
 
